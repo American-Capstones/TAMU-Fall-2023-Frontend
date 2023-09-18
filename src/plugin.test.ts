@@ -1,7 +1,7 @@
 import { tamuFall2023FrontendPlugin } from './plugin';
 
 describe('tamu-fall-2023-frontend', () => {
-  it('should export plugin', () => {
+  it('exports plugin', () => {
     expect(tamuFall2023FrontendPlugin).toBeDefined();
   });
 });
