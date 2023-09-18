@@ -7,6 +7,6 @@ createDevApp()
   .addPage({
     element: <TamuFall2023FrontendPage />,
     title: 'Root Page',
-    path: '/tamu-fall-2023-frontend'
+    path: '/tamu-fall-2023-frontend',
   })
   .render();

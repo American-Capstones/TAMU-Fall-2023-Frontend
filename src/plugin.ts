@@ -12,8 +12,7 @@ export const tamuFall2023FrontendPlugin = createPlugin({
 export const TamuFall2023FrontendPage = tamuFall2023FrontendPlugin.provide(
   createRoutableExtension({
     name: 'TamuFall2023FrontendPage',
-    component: () =>
-      import('./components/ExampleComponent').then(m => m.ExampleComponent),
+    component: () => import('./components/ExampleComponent').then((m) => m.ExampleComponent),
     mountPoint: rootRouteRef,
   }),
 );
