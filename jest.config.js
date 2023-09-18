@@ -1,8 +1,8 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  moduleFileExtensions: ['js', 'json', 'ts'],
-  testMatch: ['**/*.test.ts'],
+  moduleFileExtensions: ['js', 'json', 'ts', 'tsx'],
+  testMatch: ['**/*.test.ts', '**/*.test.tsx'],
   clearMocks: true,
   testPathIgnorePatterns: ['/node_modules/'],
   coverageDirectory: './coverage',
@@ -12,7 +12,6 @@ module.exports = {
     '!./src/env.ts',
     '!./src/slack/*',
     '!./src/run.ts',
-    '!./src/service/standaloneServer.ts',
   ],
   coverageThreshold: {
     global: {
