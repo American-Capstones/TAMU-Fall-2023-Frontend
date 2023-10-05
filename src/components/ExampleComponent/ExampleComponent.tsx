@@ -18,20 +18,47 @@ export const ExampleComponent = () => (
       <HeaderLabel label="Lifecycle" value="Alpha" />
     </Header>
     <Content>
-      <ContentHeader title="Plugin title">
+      <ContentHeader title="American Airlines Pull Request Board">
         <SupportButton>A description of your plugin goes here.</SupportButton>
       </ContentHeader>
-      <Grid container spacing={3} direction="column">
+      <Grid container spacing={3} direction="row">
         <Grid item>
-          <InfoCard title="Information card">
+          <InfoCard title="Pull Request 1">
             <Typography variant="body1">
-              All content should be wrapped in a card like this.
+              This pull request is focused on implementing a new
+              <br />
+              feature in the Passenger Experience Enhancement
+              <br />
+              App, specifically the "Seat Selection" feature...
             </Typography>
           </InfoCard>
         </Grid>
         <Grid item>
-          <ExampleFetchComponent />
+          <InfoCard title="Pull Request 2">
+            <Typography variant="body1">
+              Pre-Requisites
+              <br />
+              Yes, I updated Authors.md OR this is not my
+              <br /> first contribution
+              <br />
+              Yes, I included and/or modified tests to cover
+              <br />
+              relevent code OR my change is non-technical...
+            </Typography>
+          </InfoCard>
         </Grid>
+        <Grid item>
+          <InfoCard title="Pull Request 3">
+            <Typography variant="body1">
+              This pull request integrates mobile check-in <br />
+              functionality, streamlining the check-in process for <br />
+              passengers using our app...
+            </Typography>
+          </InfoCard>
+        </Grid>
+        {/* <Grid item>
+          <ExampleFetchComponent />
+        </Grid> */}
       </Grid>
     </Content>
   </Page>
