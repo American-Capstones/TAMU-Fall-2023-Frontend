@@ -17,6 +17,7 @@ import { PreviewComponent, QueryType } from '../PreviewComponent/PreviewComponen
 
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<QueryType>();
+  const [state, setState] = useState(false);
 
   return (
     <Page themeId="documentation">
@@ -32,21 +33,36 @@ export const KanbanComponent = () => {
           <Grid item xs={4}>
             <Container>
               {json1.map((item) => (
-                <CardComponent data={item} key={item.id} onQuery={setQuery}></CardComponent>
+                <CardComponent
+                  data={item}
+                  key={item.id}
+                  onQuery={setQuery}
+                  onState={setState}
+                ></CardComponent>
               ))}
             </Container>
           </Grid>
           <Grid item xs={4}>
             <Container>
               {json2.map((item) => (
-                <CardComponent data={item} key={item.id} onQuery={setQuery}></CardComponent>
+                <CardComponent
+                  data={item}
+                  key={item.id}
+                  onQuery={setQuery}
+                  onState={setState}
+                ></CardComponent>
               ))}
             </Container>
           </Grid>
           <Grid item xs={4}>
             <Container>
               {json3.map((item) => (
-                <CardComponent data={item} key={item.id} onQuery={setQuery}></CardComponent>
+                <CardComponent
+                  data={item}
+                  key={item.id}
+                  onQuery={setQuery}
+                  onState={setState}
+                ></CardComponent>
               ))}
             </Container>
           </Grid>
@@ -55,7 +71,7 @@ export const KanbanComponent = () => {
         </Grid> */}
         </Grid>
         <Container maxWidth="sm">
-          <PreviewComponent query={query} />
+          <PreviewComponent query={query} state={state} onState={setState} />
         </Container>
       </Content>
     </Page>
