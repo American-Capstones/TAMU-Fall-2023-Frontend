@@ -13,10 +13,10 @@ import { CardComponent } from '../CardComponent';
 import json1 from '../../res/PRS_DEFINED';
 import json2 from '../../res/PRS_INPROGRESS';
 import json3 from '../../res/PRS_DONE';
-import { PreviewComponent } from '../PreviewComponent/PreviewComponent';
+import { PreviewComponent, QueryType } from '../PreviewComponent/PreviewComponent';
 
 export const KanbanComponent = () => {
-  const [query, setQuery] = useState({ id: 0, title: '', description: '' });
+  const [query, setQuery] = useState<QueryType>();
 
   return (
     <Page themeId="documentation">
@@ -54,7 +54,7 @@ export const KanbanComponent = () => {
           <ExampleFetchComponent />
         </Grid> */}
         </Grid>
-        <Container>
+        <Container maxWidth="sm">
           <PreviewComponent query={query} />
         </Container>
       </Content>
