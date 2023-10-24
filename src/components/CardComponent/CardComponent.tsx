@@ -19,7 +19,7 @@ export const CardComponent = ({ data, key, onQuery }: { data: any; key: any; onQ
           </>
         }
       >
-        <Typography variant="body1">{data.description.substring(0, 120) + '...'}</Typography>
+        <Typography variant="body1">{data.body.substring(0, 120) + '...'}</Typography>
       </InfoCard>
     </div>
   );
