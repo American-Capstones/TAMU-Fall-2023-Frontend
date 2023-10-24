@@ -2,10 +2,21 @@ import React from 'react';
 import { Typography, Chip } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
 
-export const CardComponent = ({ data, key, onQuery }: { data: any; key: any; onQuery: any }) => {
+export const CardComponent = ({
+  data,
+  key,
+  onQuery,
+  onState,
+}: {
+  data: any;
+  key: any;
+  onQuery: any;
+  onState: any;
+}) => {
   function handleClick() {
     console.log(data);
     onQuery(data);
+    onState(true);
   }
 
   return (
