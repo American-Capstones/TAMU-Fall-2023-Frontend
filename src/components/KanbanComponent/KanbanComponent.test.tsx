@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExampleComponent } from './ExampleComponent';
+import { KanbanComponent } from './KanbanComponent';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 import { screen } from '@testing-library/react';
@@ -18,7 +18,7 @@ describe('ExampleComponent', () => {
   });
 
   it('renders example component', async () => {
-    await renderInTestApp(<ExampleComponent />);
+    await renderInTestApp(<KanbanComponent />);
     expect(screen.getByText('Welcome to tamu-fall-2023-frontend!')).toBeInTheDocument();
   });
 });
