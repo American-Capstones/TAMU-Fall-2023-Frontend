@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Container } from '@material-ui/core';
+import { Grid, Container, Typography, Divider, Box, Chip } from '@material-ui/core';
 import {
   Header,
   Page,
@@ -19,6 +19,41 @@ export const KanbanComponent = () => {
   const [query, setQuery] = useState<QueryType>();
   const [state, setState] = useState(false);
 
+  function KanbanColumnHeader(columnName: string, columnLength: number) {
+    return (
+      <>
+        <Box mb={2} m={4}>
+          <Grid container spacing={2}>
+            <Grid item xs={8}>
+              <Typography variant="h6">{columnName}</Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Chip label={columnLength} />
+            </Grid>
+          </Grid>
+          <Divider />
+        </Box>
+      </>
+    );
+  }
+
+  function KanbanColumnBody(json: any) {
+    return (
+      <>
+        <Container>
+          {json.map((item: any) => (
+            <CardComponent
+              data={item}
+              key={item.id}
+              onQuery={setQuery}
+              onState={setState}
+            ></CardComponent>
+          ))}
+        </Container>
+      </>
+    );
+  }
+
   return (
     <Page themeId="documentation">
       <Header title="Welcome to tamu-fall-2023-frontend!" subtitle="Optional subtitle">
@@ -31,40 +66,16 @@ export const KanbanComponent = () => {
         </ContentHeader>
         <Grid container spacing={3} direction="row">
           <Grid item xs={4}>
-            <Container>
-              {json1.map((item) => (
-                <CardComponent
-                  data={item}
-                  key={item.id}
-                  onQuery={setQuery}
-                  onState={setState}
-                ></CardComponent>
-              ))}
-            </Container>
+            {KanbanColumnHeader('Defined', json1.length)}
+            {KanbanColumnBody(json1)}
           </Grid>
           <Grid item xs={4}>
-            <Container>
-              {json2.map((item) => (
-                <CardComponent
-                  data={item}
-                  key={item.id}
-                  onQuery={setQuery}
-                  onState={setState}
-                ></CardComponent>
-              ))}
-            </Container>
+            {KanbanColumnHeader('In Progress', json2.length)}
+            {KanbanColumnBody(json2)}
           </Grid>
           <Grid item xs={4}>
-            <Container>
-              {json3.map((item) => (
-                <CardComponent
-                  data={item}
-                  key={item.id}
-                  onQuery={setQuery}
-                  onState={setState}
-                ></CardComponent>
-              ))}
-            </Container>
+            {KanbanColumnHeader('Done', json3.length)}
+            {KanbanColumnBody(json3)}
           </Grid>
           {/* <Grid item>
           <ExampleFetchComponent />
