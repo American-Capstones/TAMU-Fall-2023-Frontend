@@ -3,6 +3,8 @@ const json = [
     id: 0,
     title: 'Pull Request 1',
     body: 'This pull request is focused on implementing a new feature in the Passenger Experience Enhancement App, specifically the "Seat Selection" feature. The goal is to provide passengers with an improved and seamless seat selection process, enhancing their overall experience when booking flights with our airline.',
+    labels: ['Design', '3 Days'],
+
     assignees: [
       {
         login: 'octocat',
@@ -72,6 +74,8 @@ const json = [
     id: 1,
     title: 'Pull Request 2',
     body: 'This pull request adds multilingual support to the app, enabling passengers to access content and services in their preferred language, fostering greater inclusivity and improving user satisfaction.',
+    labels: ['Backend', '1 Day'],
+
     assignees: [
       {
         login: 'octocat',
@@ -141,6 +145,7 @@ const json = [
     id: 5,
     title: 'Amazing new feature',
     body: 'Please pull these awesome changes in!',
+    labels: ['Backend', '5 Days'],
     assignee: {
       login: 'octocat',
       id: 1,
