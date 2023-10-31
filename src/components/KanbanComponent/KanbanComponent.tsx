@@ -10,9 +10,9 @@ import {
 } from '@backstage/core-components';
 // import { ExampleFetchComponent } from '../ExampleFetchComponent';
 import { CardComponent } from '../CardComponent';
-import json1 from '../../res/PRS_DEFINED';
-import json2 from '../../res/PRS_INPROGRESS';
-import json3 from '../../res/PRS_DONE';
+import DEFINED_PRs from '../../res/PRS_DEFINED';
+import IN_PROGRESS_PRs from '../../res/PRS_INPROGRESS';
+import DONE_PRs from '../../res/PRS_DONE';
 import { PreviewComponent, QueryType } from '../PreviewComponent/PreviewComponent';
 
 export const KanbanComponent = () => {
@@ -31,21 +31,21 @@ export const KanbanComponent = () => {
         <Grid container spacing={3} direction="row">
           <Grid item xs={4}>
             <Container>
-              {json1.map((item) => (
+              {DEFINED_PRs.map((item) => (
                 <CardComponent data={item} key={item.id} onQuery={setQuery}></CardComponent>
               ))}
             </Container>
           </Grid>
           <Grid item xs={4}>
             <Container>
-              {json2.map((item) => (
+              {IN_PROGRESS_PRs.map((item) => (
                 <CardComponent data={item} key={item.id} onQuery={setQuery}></CardComponent>
               ))}
             </Container>
           </Grid>
           <Grid item xs={4}>
             <Container>
-              {json3.map((item) => (
+              {DONE_PRs.map((item) => (
                 <CardComponent data={item} key={item.id} onQuery={setQuery}></CardComponent>
               ))}
             </Container>
