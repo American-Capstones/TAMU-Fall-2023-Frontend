@@ -19,17 +19,19 @@ export const CardComponent = ({
     onState(true);
   }
 
+  function extractLabels(labels: Array<string>) {
+    return (
+      <>
+        {labels.map((item: any) => (
+          <Chip label={item} color="primary" />
+        ))}
+      </>
+    );
+  }
+
   return (
     <div style={{ paddingBottom: '10px', cursor: 'pointer' }} onClick={handleClick}>
-      <InfoCard
-        title={data.title}
-        subheader={
-          <>
-            <Chip label="Chip Filled" color="primary" />
-            <Chip label="Chip Filled" color="primary" />
-          </>
-        }
-      >
+      <InfoCard title={data.title} subheader={<>{extractLabels(data.labels)}</>}>
         <Typography variant="body1">{data.body.substring(0, 120) + '...'}</Typography>
       </InfoCard>
     </div>
