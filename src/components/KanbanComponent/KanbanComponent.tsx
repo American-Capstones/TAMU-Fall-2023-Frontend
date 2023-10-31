@@ -20,14 +20,12 @@ import {
   ContentHeader,
   HeaderLabel,
   SupportButton,
-  InfoCard,
 } from '@backstage/core-components';
-
 // import { ExampleFetchComponent } from '../ExampleFetchComponent';
 import { CardComponent } from '../CardComponent';
-import json1 from '../../res/PRS_DEFINED';
-import json2 from '../../res/PRS_INPROGRESS';
-import json3 from '../../res/PRS_DONE';
+import DEFINED_PRs from '../../res/PRS_DEFINED';
+import IN_PROGRESS_PRs from '../../res/PRS_INPROGRESS';
+import DONE_PRs from '../../res/PRS_DONE';
 import { PreviewComponent, QueryType } from '../PreviewComponent/PreviewComponent';
 
 export const KanbanComponent = () => {
@@ -143,16 +141,16 @@ export const KanbanComponent = () => {
             </ContentHeader>
             <Grid container spacing={3} direction="row">
               <Grid item xs={4}>
-                {KanbanColumnHeader('Defined', json1.length)}
-                {KanbanColumnBody(json1)}
+                {KanbanColumnHeader('Defined', DEFINED_PRs.length)}
+                {KanbanColumnBody(DEFINED_PRs)}
               </Grid>
               <Grid item xs={4}>
-                {KanbanColumnHeader('In Progress', json2.length)}
-                {KanbanColumnBody(json2)}
+                {KanbanColumnHeader('In Progress', IN_PROGRESS_PRs.length)}
+                {KanbanColumnBody(IN_PROGRESS_PRs)}
               </Grid>
               <Grid item xs={4}>
-                {KanbanColumnHeader('Done', json3.length)}
-                {KanbanColumnBody(json3)}
+                {KanbanColumnHeader('Done', DONE_PRs.length)}
+                {KanbanColumnBody(DONE_PRs)}
               </Grid>
               {/* <Grid item>
           <ExampleFetchComponent />
