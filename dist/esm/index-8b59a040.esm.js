@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Chip, Typography, Drawer, Box, Grid, Container } from '@material-ui/core';
+import { Typography, Chip, Drawer, Box, Grid, Divider, Container } from '@material-ui/core';
 import { InfoCard, Page, Header, HeaderLabel, Content, ContentHeader, SupportButton } from '@backstage/core-components';
 
 const CardComponent = ({
@@ -13,14 +13,10 @@ const CardComponent = ({
     onQuery(data);
     onState(true);
   }
-  return /* @__PURE__ */ React.createElement("div", { style: { paddingBottom: "10px", cursor: "pointer" }, onClick: handleClick }, /* @__PURE__ */ React.createElement(
-    InfoCard,
-    {
-      title: data.title,
-      subheader: /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Chip, { label: "Chip Filled", color: "primary" }), /* @__PURE__ */ React.createElement(Chip, { label: "Chip Filled", color: "primary" }))
-    },
-    /* @__PURE__ */ React.createElement(Typography, { variant: "body1" }, data.body.substring(0, 120) + "...")
-  ));
+  function extractLabels(labels) {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, labels.map((item) => /* @__PURE__ */ React.createElement(Chip, { label: item, color: "primary" })));
+  }
+  return /* @__PURE__ */ React.createElement("div", { style: { paddingBottom: "10px", cursor: "pointer" }, onClick: handleClick }, /* @__PURE__ */ React.createElement(InfoCard, { title: data.title, subheader: /* @__PURE__ */ React.createElement(React.Fragment, null, extractLabels(data.labels)) }, /* @__PURE__ */ React.createElement(Typography, { variant: "body1" }, data.body.substring(0, 120) + "...")));
 };
 
 const json$2 = [
@@ -28,6 +24,7 @@ const json$2 = [
     id: 0,
     title: "Pull Request 1",
     body: 'This pull request is focused on implementing a new feature in the Passenger Experience Enhancement App, specifically the "Seat Selection" feature. The goal is to provide passengers with an improved and seamless seat selection process, enhancing their overall experience when booking flights with our airline.',
+    labels: ["Design", "3 Days"],
     assignees: [
       {
         login: "octocat",
@@ -97,6 +94,7 @@ const json$2 = [
     id: 1,
     title: "Pull Request 2",
     body: "This pull request adds multilingual support to the app, enabling passengers to access content and services in their preferred language, fostering greater inclusivity and improving user satisfaction.",
+    labels: ["Backend", "1 Day"],
     assignees: [
       {
         login: "octocat",
@@ -166,6 +164,7 @@ const json$2 = [
     id: 5,
     title: "Amazing new feature",
     body: "Please pull these awesome changes in!",
+    labels: ["Backend", "5 Days"],
     assignee: {
       login: "octocat",
       id: 1,
@@ -258,6 +257,7 @@ const json$1 = [
     id: 2,
     title: "Pull Request 3",
     body: "This pull request integrates mobile check-in functionality, streamlining the check-in process for passengers using our app, promoting a seamless and hassle-free travel experience",
+    labels: ["Backend", "5 Days"],
     assignees: [
       {
         login: "octocat",
@@ -327,6 +327,7 @@ const json$1 = [
     id: 3,
     title: "Pull Request 4",
     body: "Introducing multilingual support to enhance the user experience by providing content and assistance in multiple languages, boosting accessibility, and catering to a diverse global audience",
+    labels: ["Design", "1 Day"],
     assignees: [
       {
         login: "octocat",
@@ -399,6 +400,7 @@ const json = [
     id: 4,
     title: "Pull Request 3",
     body: "This pull request integrates mobile check-in functionality, streamlining the check-in process for passengers using our app, enhancing convenience and efficiency.",
+    labels: ["Backend", "4 Days"],
     assignees: [
       {
         login: "octocat",
@@ -473,18 +475,28 @@ const PreviewComponent = ({
 }) => {
   console.log("OKAY", query);
   const toggleDrawer = (open) => (event) => {
+    console.log(query);
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
     onState(open);
   };
-  return query ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Drawer, { anchor: "right", open: state, onClose: toggleDrawer(false) }, /* @__PURE__ */ React.createElement(Box, { sx: { width: 250 } }, /* @__PURE__ */ React.createElement(Typography, { variant: "h5" }, query.title), /* @__PURE__ */ React.createElement("div", null, query.body), /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Assignees"), query.assignees.map((item) => /* @__PURE__ */ React.createElement("div", null, item.login)), /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Requested Reviewers"), query.requested_reviewers.map((item) => /* @__PURE__ */ React.createElement("div", null, item.login))))) : /* @__PURE__ */ React.createElement(React.Fragment, null);
+  return query ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
+    Drawer,
+    {
+      anchor: "right",
+      open: state,
+      onClose: toggleDrawer(false),
+      BackdropProps: { invisible: true }
+    },
+    /* @__PURE__ */ React.createElement(Box, { width: 350, m: 2, mt: 8, alignItems: "center", justifyContent: "center" }, /* @__PURE__ */ React.createElement(Box, { mt: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h4" }, query.title), /* @__PURE__ */ React.createElement("div", null, query.body)), /* @__PURE__ */ React.createElement(Box, { mt: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Assignees"), query.assignees.map((item) => /* @__PURE__ */ React.createElement("div", null, item.login))), /* @__PURE__ */ React.createElement(Box, { mt: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Requested Reviewers"), query.requested_reviewers.map((item) => /* @__PURE__ */ React.createElement("div", null, item.login))), /* @__PURE__ */ React.createElement(Box, { mt: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Labels"), query.labels.map((item) => /* @__PURE__ */ React.createElement(Chip, { label: item }))))
+  )) : /* @__PURE__ */ React.createElement(React.Fragment, null);
 };
 
 const KanbanComponent = () => {
   const [query, setQuery] = useState();
   const [state, setState] = useState(false);
-  return /* @__PURE__ */ React.createElement(Page, { themeId: "documentation" }, /* @__PURE__ */ React.createElement(Header, { title: "Welcome to tamu-fall-2023-frontend!", subtitle: "Optional subtitle" }, /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Owner", value: "Team X" }), /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Lifecycle", value: "Alpha" })), /* @__PURE__ */ React.createElement(Content, null, /* @__PURE__ */ React.createElement(ContentHeader, { title: "Plugin title" }, /* @__PURE__ */ React.createElement(SupportButton, null, "A description of your plugin goes here.")), /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 3, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Container, null, json$2.map((item) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(Page, { themeId: "documentation" }, /* @__PURE__ */ React.createElement(Header, { title: "Welcome to tamu-fall-2023-frontend!", subtitle: "Optional subtitle" }, /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Owner", value: "Team X" }), /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Lifecycle", value: "Alpha" })), /* @__PURE__ */ React.createElement(Content, null, /* @__PURE__ */ React.createElement(ContentHeader, { title: "Plugin title" }, /* @__PURE__ */ React.createElement(SupportButton, null, "A description of your plugin goes here.")), /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 3, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Box, { mb: 2, m: 8 }, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2 }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 8 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Defined")), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Chip, { label: json$2.length }))), /* @__PURE__ */ React.createElement(Divider, null)), /* @__PURE__ */ React.createElement(Container, null, json$2.map((item) => /* @__PURE__ */ React.createElement(
     CardComponent,
     {
       data: item,
@@ -492,7 +504,7 @@ const KanbanComponent = () => {
       onQuery: setQuery,
       onState: setState
     }
-  )))), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Container, null, json$1.map((item) => /* @__PURE__ */ React.createElement(
+  )))), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Box, { mb: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "In Progress"), /* @__PURE__ */ React.createElement(Divider, null)), /* @__PURE__ */ React.createElement(Container, null, json$1.map((item) => /* @__PURE__ */ React.createElement(
     CardComponent,
     {
       data: item,
@@ -500,7 +512,7 @@ const KanbanComponent = () => {
       onQuery: setQuery,
       onState: setState
     }
-  )))), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Container, null, json.map((item) => /* @__PURE__ */ React.createElement(
+  )))), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Box, { mb: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Approved"), /* @__PURE__ */ React.createElement(Divider, null)), /* @__PURE__ */ React.createElement(Container, null, json.map((item) => /* @__PURE__ */ React.createElement(
     CardComponent,
     {
       data: item,
@@ -512,4 +524,4 @@ const KanbanComponent = () => {
 };
 
 export { KanbanComponent };
-//# sourceMappingURL=index-c16e1eca.esm.js.map
+//# sourceMappingURL=index-8b59a040.esm.js.map

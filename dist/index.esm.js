@@ -13,7 +13,7 @@ const tamuFall2023FrontendPlugin = createPlugin({
 const TamuFall2023FrontendPage = tamuFall2023FrontendPlugin.provide(
   createRoutableExtension({
     name: "TamuFall2023FrontendPage",
-    component: () => import('./esm/index-c16e1eca.esm.js').then((m) => m.KanbanComponent),
+    component: () => import('./esm/index-8b59a040.esm.js').then((m) => m.KanbanComponent),
     mountPoint: rootRouteRef
   })
 );
