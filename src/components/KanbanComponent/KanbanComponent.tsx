@@ -37,7 +37,7 @@ export const KanbanComponent = () => {
   const KanbanColumnBody = (pullRequests: any[]) => {
     return (
       <>
-        <Container>
+        <Container style={{ maxHeight: 700, overflow: 'auto' }}>
           {pullRequests.map((item: any) => (
             <CardComponent
               data={item}
