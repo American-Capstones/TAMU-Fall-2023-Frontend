@@ -11,12 +11,12 @@ export type QueryType = {
 
 export const PreviewComponent = ({
   query,
-  state,
-  onState,
+  sideDrawOpen,
+  onSideDrawOpen,
 }: {
   query?: QueryType;
-  state: boolean;
-  onState: React.Dispatch<React.SetStateAction<boolean>>;
+  sideDrawOpen: boolean;
+  onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   console.log('OKAY', query);
 
@@ -30,14 +30,14 @@ export const PreviewComponent = ({
       return;
     }
 
-    onState(open);
+    onSideDrawOpen(open);
   };
 
   return query ? (
     <>
       <Drawer
         anchor="right"
-        open={state}
+        open={sideDrawOpen}
         onClose={toggleDrawer(false)}
         BackdropProps={{ invisible: true }}
       >
@@ -64,7 +64,7 @@ export const PreviewComponent = ({
           <Box mt={2}>
             <Typography variant="h6">Labels</Typography>
             {query.labels.map((item: any) => (
-              <Chip label={item}/>
+              <Chip label={item} />
             ))}
           </Box>
         </Box>
