@@ -3,8 +3,8 @@ import { Chip } from '@material-ui/core';
 
 export const Labels = (labels: Array<string>) => (
   <>
-    {labels.map((item: any) => (
-      <Chip label={item} color="primary" />
+    {labels.map((item: any, i: number) => (
+      <Chip label={item} key={i} color="primary" />
     ))}
   </>
 );
