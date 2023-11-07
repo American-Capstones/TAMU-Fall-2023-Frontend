@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
-import { Typography, Chip, Drawer, Box, Grid, Divider, Container } from '@material-ui/core';
+import { Chip, Typography, Drawer, Box, Grid, Divider, Container, List, ListItem, ListItemText, Card, CardContent } from '@material-ui/core';
 import { InfoCard, Page, Header, HeaderLabel, Content, ContentHeader, SupportButton } from '@backstage/core-components';
 
-const CardComponent = ({
-  data,
-  key,
-  onQuery,
-  onState
-}) => {
-  function handleClick() {
+const Labels = (labels) => /* @__PURE__ */ React.createElement(React.Fragment, null, labels.map((item, i) => /* @__PURE__ */ React.createElement(Chip, { label: item, key: i, color: "primary" })));
+
+const CardComponent = ({ data, key, onQuery, onSideDrawOpen }) => {
+  const handleClick = () => {
     console.log(data);
     onQuery(data);
-    onState(true);
-  }
-  function extractLabels(labels) {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, labels.map((item) => /* @__PURE__ */ React.createElement(Chip, { label: item, color: "primary" })));
-  }
-  return /* @__PURE__ */ React.createElement("div", { style: { paddingBottom: "10px", cursor: "pointer" }, onClick: handleClick }, /* @__PURE__ */ React.createElement(InfoCard, { title: data.title, subheader: /* @__PURE__ */ React.createElement(React.Fragment, null, extractLabels(data.labels)) }, /* @__PURE__ */ React.createElement(Typography, { variant: "body1" }, data.body.substring(0, 120) + "...")));
+    onSideDrawOpen(true);
+  };
+  return /* @__PURE__ */ React.createElement("div", { style: { paddingBottom: "10px", cursor: "pointer" }, onClick: handleClick }, /* @__PURE__ */ React.createElement(InfoCard, { title: data.title, subheader: /* @__PURE__ */ React.createElement(React.Fragment, null, Labels(data.labels)) }, /* @__PURE__ */ React.createElement(Typography, { variant: "body1" }, `${data.body.substring(0, 120)}...`)));
 };
 
 const json$2 = [
@@ -470,8 +464,8 @@ const json = [
 
 const PreviewComponent = ({
   query,
-  state,
-  onState
+  sideDrawOpen,
+  onSideDrawOpen
 }) => {
   console.log("OKAY", query);
   const toggleDrawer = (open) => (event) => {
@@ -479,13 +473,13 @@ const PreviewComponent = ({
     if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
       return;
     }
-    onState(open);
+    onSideDrawOpen(open);
   };
   return query ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(
     Drawer,
     {
       anchor: "right",
-      open: state,
+      open: sideDrawOpen,
       onClose: toggleDrawer(false),
       BackdropProps: { invisible: true }
     },
@@ -493,35 +487,63 @@ const PreviewComponent = ({
   )) : /* @__PURE__ */ React.createElement(React.Fragment, null);
 };
 
+const KanbanColumnHeader = (columnName, columnLength) => {
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Box, { mb: 2, m: 4 }, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2 }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 10 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, columnName)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 2 }, /* @__PURE__ */ React.createElement(Chip, { label: columnLength }))), /* @__PURE__ */ React.createElement(Divider, null)));
+};
+
 const KanbanComponent = () => {
   const [query, setQuery] = useState();
-  const [state, setState] = useState(false);
-  return /* @__PURE__ */ React.createElement(Page, { themeId: "documentation" }, /* @__PURE__ */ React.createElement(Header, { title: "Welcome to tamu-fall-2023-frontend!", subtitle: "Optional subtitle" }, /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Owner", value: "Team X" }), /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Lifecycle", value: "Alpha" })), /* @__PURE__ */ React.createElement(Content, null, /* @__PURE__ */ React.createElement(ContentHeader, { title: "Plugin title" }, /* @__PURE__ */ React.createElement(SupportButton, null, "A description of your plugin goes here.")), /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 3, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Box, { mb: 2, m: 8 }, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2 }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 8 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Defined")), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Chip, { label: json$2.length }))), /* @__PURE__ */ React.createElement(Divider, null)), /* @__PURE__ */ React.createElement(Container, null, json$2.map((item) => /* @__PURE__ */ React.createElement(
-    CardComponent,
+  const [sideDrawOpen, setSideDrawOpen] = useState(false);
+  const KanbanColumnBody = (pullRequests) => {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Container, null, pullRequests.map((item) => /* @__PURE__ */ React.createElement(
+      CardComponent,
+      {
+        data: item,
+        key: item.id,
+        onQuery: setQuery,
+        onSideDrawOpen: setSideDrawOpen
+      }
+    ))));
+  };
+  const KanbanTeams = () => {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Box, null, /* @__PURE__ */ React.createElement(Typography, { variant: "h5" }, "Teams")), /* @__PURE__ */ React.createElement(List, { disablePadding: true }, /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
+      ListItemText,
+      {
+        primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
+      }
+    )), /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
+      ListItemText,
+      {
+        primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
+      }
+    )), /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
+      ListItemText,
+      {
+        primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
+      }
+    ))));
+  };
+  return /* @__PURE__ */ React.createElement(Page, { themeId: "documentation" }, /* @__PURE__ */ React.createElement(Header, { title: "Welcome to tamu-fall-2023-frontend!", subtitle: "Optional subtitle" }, /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Owner", value: "Team X" }), /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Lifecycle", value: "Alpha" })), /* @__PURE__ */ React.createElement(Content, null, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 2 }, /* @__PURE__ */ React.createElement(
+    Box,
     {
-      data: item,
-      key: item.id,
-      onQuery: setQuery,
-      onState: setState
-    }
-  )))), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Box, { mb: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "In Progress"), /* @__PURE__ */ React.createElement(Divider, null)), /* @__PURE__ */ React.createElement(Container, null, json$1.map((item) => /* @__PURE__ */ React.createElement(
-    CardComponent,
+      sx: {
+        display: "flex",
+        alignItems: "flex-start",
+        height: "100%",
+        width: "inherit"
+      }
+    },
+    /* @__PURE__ */ React.createElement(Container, { disableGutters: true }, /* @__PURE__ */ React.createElement(Box, { mr: 2 }, KanbanTeams())),
+    /* @__PURE__ */ React.createElement(Divider, { orientation: "vertical", flexItem: true })
+  )), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 10 }, /* @__PURE__ */ React.createElement(ContentHeader, { title: "Plugin title" }, /* @__PURE__ */ React.createElement(SupportButton, null, "A description of your plugin goes here.")), /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 3, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("Defined", json$2.length), KanbanColumnBody(json$2)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("In Progress", json$1.length), KanbanColumnBody(json$1)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("Done", json.length), KanbanColumnBody(json))))), /* @__PURE__ */ React.createElement(Container, { maxWidth: "sm" }, /* @__PURE__ */ React.createElement(
+    PreviewComponent,
     {
-      data: item,
-      key: item.id,
-      onQuery: setQuery,
-      onState: setState
+      query,
+      sideDrawOpen,
+      onSideDrawOpen: setSideDrawOpen
     }
-  )))), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, /* @__PURE__ */ React.createElement(Box, { mb: 2 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, "Approved"), /* @__PURE__ */ React.createElement(Divider, null)), /* @__PURE__ */ React.createElement(Container, null, json.map((item) => /* @__PURE__ */ React.createElement(
-    CardComponent,
-    {
-      data: item,
-      key: item.id,
-      onQuery: setQuery,
-      onState: setState
-    }
-  ))))), /* @__PURE__ */ React.createElement(Container, { maxWidth: "sm" }, /* @__PURE__ */ React.createElement(PreviewComponent, { query, state, onState: setState }))));
+  ))));
 };
 
 export { KanbanComponent };
-//# sourceMappingURL=index-8b59a040.esm.js.map
+//# sourceMappingURL=index-ee325504.esm.js.map
