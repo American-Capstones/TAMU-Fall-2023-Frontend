@@ -27,30 +27,14 @@ import DEFINED_PRs from '../../res/PRS_DEFINED';
 import IN_PROGRESS_PRs from '../../res/PRS_INPROGRESS';
 import DONE_PRs from '../../res/PRS_DONE';
 import { PreviewComponent, QueryType } from '../PreviewComponent/PreviewComponent';
+import { KanbanColumnHeader } from './KanbanColumnComponent/KanbanColumnHeaderComponent';
+import { KanbanTeamsComponent } from './KanbanTeamsComponent';
 
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<QueryType>();
-  const [state, setState] = useState(false);
+  const [sideDrawOpen, setSideDrawOpen] = useState(false);
 
-  function KanbanColumnHeader(columnName: string, columnLength: number) {
-    return (
-      <>
-        <Box mb={2} m={4}>
-          <Grid container spacing={2}>
-            <Grid item xs={10}>
-              <Typography variant="h6">{columnName}</Typography>
-            </Grid>
-            <Grid item xs={2}>
-              <Chip label={columnLength} />
-            </Grid>
-          </Grid>
-          <Divider />
-        </Box>
-      </>
-    );
-  }
-
-  function KanbanColumnBody(pullRequests: any[]) {
+  const KanbanColumnBody = (pullRequests: any[]) => {
     return (
       <>
         <Container>
@@ -59,58 +43,13 @@ export const KanbanComponent = () => {
               data={item}
               key={item.id}
               onQuery={setQuery}
-              onState={setState}
+              onSideDrawOpen={setSideDrawOpen}
             />
           ))}
         </Container>
       </>
     );
-  }
-
-  function KanbanTeams() {
-    return (
-      <>
-        <Box>
-          <Typography variant="h5">Teams</Typography>
-        </Box>
-        <List disablePadding>
-          <ListItem alignItems="flex-start" disableGutters>
-            <ListItemText
-              primary={
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2">Team Repository 1</Typography>
-                  </CardContent>
-                </Card>
-              }
-            />
-          </ListItem>
-          <ListItem alignItems="flex-start" disableGutters>
-            <ListItemText
-              primary={
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2">Team Repository 1</Typography>
-                  </CardContent>
-                </Card>
-              }
-            />
-          </ListItem>
-          <ListItem alignItems="flex-start" disableGutters>
-            <ListItemText
-              primary={
-                <Card>
-                  <CardContent>
-                    <Typography variant="body2">Team Repository 1</Typography>
-                  </CardContent>
-                </Card>
-              }
-            />
-          </ListItem>
-        </List>
-      </>
-    );
-  }
+  };
 
   return (
     <Page themeId="documentation">
@@ -120,21 +59,7 @@ export const KanbanComponent = () => {
       </Header>
       <Content>
         <Grid container spacing={2} direction="row">
-          <Grid item xs={2}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                height: '100%',
-                width: 'inherit',
-              }}
-            >
-              <Container disableGutters>
-                <Box mr={2}>{KanbanTeams()}</Box>
-              </Container>
-              <Divider orientation="vertical" flexItem />
-            </Box>
-          </Grid>
+          <KanbanTeamsComponent />
           <Grid item xs={10}>
             <ContentHeader title="Plugin title">
               <SupportButton>A description of your plugin goes here.</SupportButton>
@@ -159,7 +84,11 @@ export const KanbanComponent = () => {
           </Grid>
         </Grid>
         <Container maxWidth="sm">
-          <PreviewComponent query={query} state={state} onState={setState} />
+          <PreviewComponent
+            query={query}
+            sideDrawOpen={sideDrawOpen}
+            onSideDrawOpen={setSideDrawOpen}
+          />
         </Container>
       </Content>
     </Page>
