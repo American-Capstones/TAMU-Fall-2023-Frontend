@@ -50,17 +50,17 @@ export const KanbanComponent = () => {
     );
   }
 
-  function KanbanColumnBody(json: any) {
+  function KanbanColumnBody(pullRequests: any[]) {
     return (
       <>
         <Container>
-          {json.map((item: any) => (
+          {pullRequests.map((item: any) => (
             <CardComponent
               data={item}
               key={item.id}
               onQuery={setQuery}
               onState={setState}
-            ></CardComponent>
+            />
           ))}
         </Container>
       </>

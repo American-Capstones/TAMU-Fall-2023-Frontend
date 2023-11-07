@@ -16,7 +16,7 @@ export const PreviewComponent = ({
 }: {
   query?: QueryType;
   state: boolean;
-  onState: any;
+  onState: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   console.log('OKAY', query);
 
@@ -64,7 +64,7 @@ export const PreviewComponent = ({
           <Box mt={2}>
             <Typography variant="h6">Labels</Typography>
             {query.labels.map((item: any) => (
-              <Chip label={item}></Chip>
+              <Chip label={item}/>
             ))}
           </Box>
         </Box>
