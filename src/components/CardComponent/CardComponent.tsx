@@ -8,14 +8,14 @@ interface CardComponentProps {
   data: any;
   key: string | number;
   onQuery: React.Dispatch<React.SetStateAction<QueryType | undefined>>;
-  onState: React.Dispatch<React.SetStateAction<boolean>>;
+  onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const CardComponent = ({ data, key, onQuery, onState }: CardComponentProps) => {
+export const CardComponent = ({ data, key, onQuery, onSideDrawOpen }: CardComponentProps) => {
   const handleClick = () => {
     console.log(data);
     onQuery(data);
-    onState(true);
+    onSideDrawOpen(true);
   };
 
   return (
