@@ -243,6 +243,276 @@ const json$2 = [
         site_admin: false
       }
     ]
+  },
+  {
+    id: 5,
+    title: "Amazing new feature",
+    body: "Please pull these awesome changes in!",
+    labels: ["Backend", "5 Days"],
+    assignee: {
+      login: "octocat",
+      id: 1,
+      node_id: "MDQ6VXNlcjE=",
+      avatar_url: "https://github.com/images/error/octocat_happy.gif",
+      gravatar_id: "",
+      url: "https://api.github.com/users/octocat",
+      html_url: "https://github.com/octocat",
+      followers_url: "https://api.github.com/users/octocat/followers",
+      following_url: "https://api.github.com/users/octocat/following{/other_user}",
+      gists_url: "https://api.github.com/users/octocat/gists{/gist_id}",
+      starred_url: "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+      subscriptions_url: "https://api.github.com/users/octocat/subscriptions",
+      organizations_url: "https://api.github.com/users/octocat/orgs",
+      repos_url: "https://api.github.com/users/octocat/repos",
+      events_url: "https://api.github.com/users/octocat/events{/privacy}",
+      received_events_url: "https://api.github.com/users/octocat/received_events",
+      type: "User",
+      site_admin: false
+    },
+    assignees: [
+      {
+        login: "octocat",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/octocat_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/octocat",
+        html_url: "https://github.com/octocat",
+        followers_url: "https://api.github.com/users/octocat/followers",
+        following_url: "https://api.github.com/users/octocat/following{/other_user}",
+        gists_url: "https://api.github.com/users/octocat/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/octocat/subscriptions",
+        organizations_url: "https://api.github.com/users/octocat/orgs",
+        repos_url: "https://api.github.com/users/octocat/repos",
+        events_url: "https://api.github.com/users/octocat/events{/privacy}",
+        received_events_url: "https://api.github.com/users/octocat/received_events",
+        type: "User",
+        site_admin: false
+      },
+      {
+        login: "hubot",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/hubot_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/hubot",
+        html_url: "https://github.com/hubot",
+        followers_url: "https://api.github.com/users/hubot/followers",
+        following_url: "https://api.github.com/users/hubot/following{/other_user}",
+        gists_url: "https://api.github.com/users/hubot/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/hubot/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/hubot/subscriptions",
+        organizations_url: "https://api.github.com/users/hubot/orgs",
+        repos_url: "https://api.github.com/users/hubot/repos",
+        events_url: "https://api.github.com/users/hubot/events{/privacy}",
+        received_events_url: "https://api.github.com/users/hubot/received_events",
+        type: "User",
+        site_admin: true
+      }
+    ],
+    requested_reviewers: [
+      {
+        login: "other_user",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/other_user_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/other_user",
+        html_url: "https://github.com/other_user",
+        followers_url: "https://api.github.com/users/other_user/followers",
+        following_url: "https://api.github.com/users/other_user/following{/other_user}",
+        gists_url: "https://api.github.com/users/other_user/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/other_user/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/other_user/subscriptions",
+        organizations_url: "https://api.github.com/users/other_user/orgs",
+        repos_url: "https://api.github.com/users/other_user/repos",
+        events_url: "https://api.github.com/users/other_user/events{/privacy}",
+        received_events_url: "https://api.github.com/users/other_user/received_events",
+        type: "User",
+        site_admin: false
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: "Amazing new feature",
+    body: "Please pull these awesome changes in!",
+    labels: ["Backend", "5 Days"],
+    assignee: {
+      login: "octocat",
+      id: 1,
+      node_id: "MDQ6VXNlcjE=",
+      avatar_url: "https://github.com/images/error/octocat_happy.gif",
+      gravatar_id: "",
+      url: "https://api.github.com/users/octocat",
+      html_url: "https://github.com/octocat",
+      followers_url: "https://api.github.com/users/octocat/followers",
+      following_url: "https://api.github.com/users/octocat/following{/other_user}",
+      gists_url: "https://api.github.com/users/octocat/gists{/gist_id}",
+      starred_url: "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+      subscriptions_url: "https://api.github.com/users/octocat/subscriptions",
+      organizations_url: "https://api.github.com/users/octocat/orgs",
+      repos_url: "https://api.github.com/users/octocat/repos",
+      events_url: "https://api.github.com/users/octocat/events{/privacy}",
+      received_events_url: "https://api.github.com/users/octocat/received_events",
+      type: "User",
+      site_admin: false
+    },
+    assignees: [
+      {
+        login: "octocat",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/octocat_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/octocat",
+        html_url: "https://github.com/octocat",
+        followers_url: "https://api.github.com/users/octocat/followers",
+        following_url: "https://api.github.com/users/octocat/following{/other_user}",
+        gists_url: "https://api.github.com/users/octocat/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/octocat/subscriptions",
+        organizations_url: "https://api.github.com/users/octocat/orgs",
+        repos_url: "https://api.github.com/users/octocat/repos",
+        events_url: "https://api.github.com/users/octocat/events{/privacy}",
+        received_events_url: "https://api.github.com/users/octocat/received_events",
+        type: "User",
+        site_admin: false
+      },
+      {
+        login: "hubot",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/hubot_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/hubot",
+        html_url: "https://github.com/hubot",
+        followers_url: "https://api.github.com/users/hubot/followers",
+        following_url: "https://api.github.com/users/hubot/following{/other_user}",
+        gists_url: "https://api.github.com/users/hubot/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/hubot/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/hubot/subscriptions",
+        organizations_url: "https://api.github.com/users/hubot/orgs",
+        repos_url: "https://api.github.com/users/hubot/repos",
+        events_url: "https://api.github.com/users/hubot/events{/privacy}",
+        received_events_url: "https://api.github.com/users/hubot/received_events",
+        type: "User",
+        site_admin: true
+      }
+    ],
+    requested_reviewers: [
+      {
+        login: "other_user",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/other_user_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/other_user",
+        html_url: "https://github.com/other_user",
+        followers_url: "https://api.github.com/users/other_user/followers",
+        following_url: "https://api.github.com/users/other_user/following{/other_user}",
+        gists_url: "https://api.github.com/users/other_user/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/other_user/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/other_user/subscriptions",
+        organizations_url: "https://api.github.com/users/other_user/orgs",
+        repos_url: "https://api.github.com/users/other_user/repos",
+        events_url: "https://api.github.com/users/other_user/events{/privacy}",
+        received_events_url: "https://api.github.com/users/other_user/received_events",
+        type: "User",
+        site_admin: false
+      }
+    ]
+  },
+  {
+    id: 5,
+    title: "Amazing new feature",
+    body: "Please pull these awesome changes in!",
+    labels: ["Backend", "5 Days"],
+    assignee: {
+      login: "octocat",
+      id: 1,
+      node_id: "MDQ6VXNlcjE=",
+      avatar_url: "https://github.com/images/error/octocat_happy.gif",
+      gravatar_id: "",
+      url: "https://api.github.com/users/octocat",
+      html_url: "https://github.com/octocat",
+      followers_url: "https://api.github.com/users/octocat/followers",
+      following_url: "https://api.github.com/users/octocat/following{/other_user}",
+      gists_url: "https://api.github.com/users/octocat/gists{/gist_id}",
+      starred_url: "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+      subscriptions_url: "https://api.github.com/users/octocat/subscriptions",
+      organizations_url: "https://api.github.com/users/octocat/orgs",
+      repos_url: "https://api.github.com/users/octocat/repos",
+      events_url: "https://api.github.com/users/octocat/events{/privacy}",
+      received_events_url: "https://api.github.com/users/octocat/received_events",
+      type: "User",
+      site_admin: false
+    },
+    assignees: [
+      {
+        login: "octocat",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/octocat_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/octocat",
+        html_url: "https://github.com/octocat",
+        followers_url: "https://api.github.com/users/octocat/followers",
+        following_url: "https://api.github.com/users/octocat/following{/other_user}",
+        gists_url: "https://api.github.com/users/octocat/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/octocat/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/octocat/subscriptions",
+        organizations_url: "https://api.github.com/users/octocat/orgs",
+        repos_url: "https://api.github.com/users/octocat/repos",
+        events_url: "https://api.github.com/users/octocat/events{/privacy}",
+        received_events_url: "https://api.github.com/users/octocat/received_events",
+        type: "User",
+        site_admin: false
+      },
+      {
+        login: "hubot",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/hubot_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/hubot",
+        html_url: "https://github.com/hubot",
+        followers_url: "https://api.github.com/users/hubot/followers",
+        following_url: "https://api.github.com/users/hubot/following{/other_user}",
+        gists_url: "https://api.github.com/users/hubot/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/hubot/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/hubot/subscriptions",
+        organizations_url: "https://api.github.com/users/hubot/orgs",
+        repos_url: "https://api.github.com/users/hubot/repos",
+        events_url: "https://api.github.com/users/hubot/events{/privacy}",
+        received_events_url: "https://api.github.com/users/hubot/received_events",
+        type: "User",
+        site_admin: true
+      }
+    ],
+    requested_reviewers: [
+      {
+        login: "other_user",
+        id: 1,
+        node_id: "MDQ6VXNlcjE=",
+        avatar_url: "https://github.com/images/error/other_user_happy.gif",
+        gravatar_id: "",
+        url: "https://api.github.com/users/other_user",
+        html_url: "https://github.com/other_user",
+        followers_url: "https://api.github.com/users/other_user/followers",
+        following_url: "https://api.github.com/users/other_user/following{/other_user}",
+        gists_url: "https://api.github.com/users/other_user/gists{/gist_id}",
+        starred_url: "https://api.github.com/users/other_user/starred{/owner}{/repo}",
+        subscriptions_url: "https://api.github.com/users/other_user/subscriptions",
+        organizations_url: "https://api.github.com/users/other_user/orgs",
+        repos_url: "https://api.github.com/users/other_user/repos",
+        events_url: "https://api.github.com/users/other_user/events{/privacy}",
+        received_events_url: "https://api.github.com/users/other_user/received_events",
+        type: "User",
+        site_admin: false
+      }
+    ]
   }
 ];
 
@@ -491,39 +761,26 @@ const KanbanColumnHeader = (columnName, columnLength) => {
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Box, { mb: 2, m: 4 }, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2 }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 10 }, /* @__PURE__ */ React.createElement(Typography, { variant: "h6" }, columnName)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 2 }, /* @__PURE__ */ React.createElement(Chip, { label: columnLength }))), /* @__PURE__ */ React.createElement(Divider, null)));
 };
 
-const KanbanComponent = () => {
-  const [query, setQuery] = useState();
-  const [sideDrawOpen, setSideDrawOpen] = useState(false);
-  const KanbanColumnBody = (pullRequests) => {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Container, null, pullRequests.map((item) => /* @__PURE__ */ React.createElement(
-      CardComponent,
-      {
-        data: item,
-        key: item.id,
-        onQuery: setQuery,
-        onSideDrawOpen: setSideDrawOpen
-      }
-    ))));
-  };
-  const KanbanTeams = () => {
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Box, null, /* @__PURE__ */ React.createElement(Typography, { variant: "h5" }, "Teams")), /* @__PURE__ */ React.createElement(List, { disablePadding: true }, /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
-      ListItemText,
-      {
-        primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
-      }
-    )), /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
-      ListItemText,
-      {
-        primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
-      }
-    )), /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
-      ListItemText,
-      {
-        primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
-      }
-    ))));
-  };
-  return /* @__PURE__ */ React.createElement(Page, { themeId: "documentation" }, /* @__PURE__ */ React.createElement(Header, { title: "Welcome to tamu-fall-2023-frontend!", subtitle: "Optional subtitle" }, /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Owner", value: "Team X" }), /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Lifecycle", value: "Alpha" })), /* @__PURE__ */ React.createElement(Content, null, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 2 }, /* @__PURE__ */ React.createElement(
+const KanbanTeams = () => {
+  return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Box, null, /* @__PURE__ */ React.createElement(Typography, { variant: "h5" }, "Teams")), /* @__PURE__ */ React.createElement(List, { disablePadding: true }, /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
+    ListItemText,
+    {
+      primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
+    }
+  )), /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
+    ListItemText,
+    {
+      primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
+    }
+  )), /* @__PURE__ */ React.createElement(ListItem, { alignItems: "flex-start", disableGutters: true }, /* @__PURE__ */ React.createElement(
+    ListItemText,
+    {
+      primary: /* @__PURE__ */ React.createElement(Card, null, /* @__PURE__ */ React.createElement(CardContent, null, /* @__PURE__ */ React.createElement(Typography, { variant: "body2" }, "Team Repository 1")))
+    }
+  ))));
+};
+const KanbanTeamsComponent = () => {
+  return /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 2 }, /* @__PURE__ */ React.createElement(
     Box,
     {
       sx: {
@@ -535,7 +792,24 @@ const KanbanComponent = () => {
     },
     /* @__PURE__ */ React.createElement(Container, { disableGutters: true }, /* @__PURE__ */ React.createElement(Box, { mr: 2 }, KanbanTeams())),
     /* @__PURE__ */ React.createElement(Divider, { orientation: "vertical", flexItem: true })
-  )), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 10 }, /* @__PURE__ */ React.createElement(ContentHeader, { title: "Plugin title" }, /* @__PURE__ */ React.createElement(SupportButton, null, "A description of your plugin goes here.")), /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 3, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("Defined", json$2.length), KanbanColumnBody(json$2)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("In Progress", json$1.length), KanbanColumnBody(json$1)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("Done", json.length), KanbanColumnBody(json))))), /* @__PURE__ */ React.createElement(Container, { maxWidth: "sm" }, /* @__PURE__ */ React.createElement(
+  ));
+};
+
+const KanbanComponent = () => {
+  const [query, setQuery] = useState();
+  const [sideDrawOpen, setSideDrawOpen] = useState(false);
+  const KanbanColumnBody = (pullRequests) => {
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Container, { style: { maxHeight: 700, overflow: "auto" } }, pullRequests.map((item) => /* @__PURE__ */ React.createElement(
+      CardComponent,
+      {
+        data: item,
+        key: item.id,
+        onQuery: setQuery,
+        onSideDrawOpen: setSideDrawOpen
+      }
+    ))));
+  };
+  return /* @__PURE__ */ React.createElement(Page, { themeId: "documentation" }, /* @__PURE__ */ React.createElement(Header, { title: "Welcome to tamu-fall-2023-frontend!", subtitle: "Optional subtitle" }, /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Owner", value: "Team X" }), /* @__PURE__ */ React.createElement(HeaderLabel, { label: "Lifecycle", value: "Alpha" })), /* @__PURE__ */ React.createElement(Content, null, /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 2, direction: "row" }, /* @__PURE__ */ React.createElement(KanbanTeamsComponent, null), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 10 }, /* @__PURE__ */ React.createElement(ContentHeader, { title: "Plugin title" }, /* @__PURE__ */ React.createElement(SupportButton, null, "A description of your plugin goes here.")), /* @__PURE__ */ React.createElement(Grid, { container: true, spacing: 3, direction: "row" }, /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("Defined", json$2.length), KanbanColumnBody(json$2)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("In Progress", json$1.length), KanbanColumnBody(json$1)), /* @__PURE__ */ React.createElement(Grid, { item: true, xs: 4 }, KanbanColumnHeader("Done", json.length), KanbanColumnBody(json))))), /* @__PURE__ */ React.createElement(Container, { maxWidth: "sm" }, /* @__PURE__ */ React.createElement(
     PreviewComponent,
     {
       query,
@@ -546,4 +820,4 @@ const KanbanComponent = () => {
 };
 
 export { KanbanComponent };
-//# sourceMappingURL=index-ee325504.esm.js.map
+//# sourceMappingURL=index-0a0714b3.esm.js.map
