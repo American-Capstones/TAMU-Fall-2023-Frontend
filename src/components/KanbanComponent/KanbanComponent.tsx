@@ -36,18 +36,16 @@ export const KanbanComponent = () => {
 
   const KanbanColumnBody = (pullRequests: any[]) => {
     return (
-      <>
-        <Container style={{ maxHeight: 700, overflow: 'auto' }}>
-          {pullRequests.map((item: any) => (
-            <CardComponent
-              data={item}
-              key={item.id}
-              onQuery={setQuery}
-              onSideDrawOpen={setSideDrawOpen}
-            />
-          ))}
-        </Container>
-      </>
+      <Container style={{ maxHeight: 700, overflow: 'auto' }}>
+        {pullRequests.map((item: any) => (
+          <CardComponent
+            data={item}
+            key={item.id}
+            onQuery={setQuery}
+            onSideDrawOpen={setSideDrawOpen}
+          />
+        ))}
+      </Container>
     );
   };
 
@@ -61,7 +59,7 @@ export const KanbanComponent = () => {
         <Grid container spacing={2} direction="row">
           <KanbanTeamsComponent />
           <Grid item xs={10}>
-            <ContentHeader title="Plugin title">
+            <ContentHeader title="American Airlines PR Board">
               <SupportButton>A description of your plugin goes here.</SupportButton>
             </ContentHeader>
             <Grid container spacing={3} direction="row">
