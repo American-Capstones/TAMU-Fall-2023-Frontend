@@ -69,7 +69,9 @@ export const KanbanTeamsComponent = () => {
         }}
       >
         <Container disableGutters>
-          <Box mr={2}>{KanbanTeams()}</Box>
+          <Box mr={2}>
+            <KanbanTeams />
+          </Box>
         </Container>
         <Divider orientation="vertical" flexItem />
       </Box>
