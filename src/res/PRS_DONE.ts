@@ -3,6 +3,8 @@ const json = [
     id: 4,
     title: 'Pull Request 3',
     body: 'This pull request integrates mobile check-in functionality, streamlining the check-in process for passengers using our app, enhancing convenience and efficiency.',
+    labels: ['Backend', '4 Days'],
+
     assignees: [
       {
         login: 'octocat',
