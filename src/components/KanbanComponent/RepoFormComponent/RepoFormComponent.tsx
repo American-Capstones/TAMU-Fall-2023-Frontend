@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Grid, TextField, makeStyles } from '@material-ui/core';
 
-const initialFormValues = {
-  ghUsername: '',
-  repositoryName: '',
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiFormControl-root': {
@@ -14,7 +9,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RepoFormComponent = () => {
+export const RepoFormComponent = ({ username }: { username: string | undefined }) => {
+  const initialFormValues = {
+    ghUsername: username,
+    repositoryName: '',
+  };
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formVisible, setFormVisible] = useState(false);
 
@@ -22,7 +21,7 @@ export const RepoFormComponent = () => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      email_id: formValues.ghUsername,
+      user_id: formValues.ghUsername,
       repository: formValues.repositoryName,
     }),
   };
@@ -36,11 +35,13 @@ export const RepoFormComponent = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log(e);
-    e.preventDefault();
     // post
-    await fetch('http://localhost:7007/api/pr-tracker-backend/add-user-repo', requestOptions).then(
-      (response) => console.log(response),
-    );
+    if (formValues.repositoryName !== '') {
+      await fetch(
+        'http://localhost:7007/api/pr-tracker-backend/add-user-repo',
+        requestOptions,
+      ).then((response) => console.log(response));
+    }
     setFormValues(initialFormValues);
     setFormVisible(false);
   };
@@ -63,13 +64,6 @@ export const RepoFormComponent = () => {
         <Grid container direction="column" spacing={3}>
           <Grid item xs={12}>
             <form className={classes.root} onSubmit={handleSubmit}>
-              <TextField
-                name="ghUsername"
-                variant="outlined"
-                label="Github Username"
-                value={formValues.ghUsername}
-                onChange={handleInputChange}
-              />
               <TextField
                 name="repositoryName"
                 variant="outlined"
