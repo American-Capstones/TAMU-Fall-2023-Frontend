@@ -1,27 +1,29 @@
 import React from 'react';
-import { Typography, Chip } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
-import { QueryType } from '../PreviewComponent/PreviewComponent';
 import { Labels } from './LabelComponent/LabelComponent';
+import { PRType } from '../KanbanComponent/KanbanComponent';
 
 interface CardComponentProps {
-  data: any;
+  data: PRType;
   key: string | number;
-  onQuery: React.Dispatch<React.SetStateAction<QueryType | undefined>>;
+  onQuery: React.Dispatch<React.SetStateAction<PRType | undefined>>;
   onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const CardComponent = ({ data, key, onQuery, onSideDrawOpen }: CardComponentProps) => {
+export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentProps) => {
   const handleClick = () => {
     console.log(data);
     onQuery(data);
     onSideDrawOpen(true);
   };
 
+  // console.log('data', data);
+
   return (
     <div style={{ paddingBottom: '10px', cursor: 'pointer' }} onClick={handleClick}>
-      <InfoCard title={data.title} subheader={<>{Labels(data.labels)}</>}>
-        <Typography variant="body1">{`${data.body.substring(0, 120)}...`}</Typography>
+      <InfoCard title={data.title} subheader={<>{Labels(data?.labels.nodes)}</>}>
+        <Typography variant="body1">{`${data.body?.substring(0, 120)}...`}</Typography>
       </InfoCard>
     </div>
   );
