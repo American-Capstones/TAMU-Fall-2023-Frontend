@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   Grid,
@@ -23,11 +23,29 @@ const defaultFormValues = {
 
 export const KanbanTeams = () => {
   const [formVisible, setFormVisible] = useState(false);
+  const [repoNames, setRepoNames] = useState([]);
 
   const handleClick = () => {
     console.log('handle click');
     setFormVisible(true);
   };
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email_id: 'tristanigos@gmail.com',
+    }),
+  };
+
+  useEffect(() => {
+    async function fetchData() {
+      await fetch('http://localhost:7007/api/pr-tracker-backend/get-user-repos', requestOptions)
+        .then((response) => response.json())
+        .then((data) => console.log(JSON.parse(data[0].data)));
+    }
+    fetchData();
+  }, []);
 
   return (
     <>

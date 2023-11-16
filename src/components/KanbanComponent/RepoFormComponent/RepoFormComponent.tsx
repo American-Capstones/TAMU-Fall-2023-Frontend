@@ -18,6 +18,15 @@ export const RepoFormComponent = () => {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formVisible, setFormVisible] = useState(false);
 
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      email_id: formValues.ghUsername,
+      repository: formValues.repositoryName,
+    }),
+  };
+
   const classes = useStyles();
 
   const handleClick = () => {
@@ -25,10 +34,13 @@ export const RepoFormComponent = () => {
     setFormVisible(formVisible ? false : true);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log(e);
     e.preventDefault();
     // post
+    await fetch('http://localhost:7007/api/pr-tracker-backend/add-user-repo', requestOptions).then(
+      (response) => console.log(response),
+    );
     setFormValues(initialFormValues);
     setFormVisible(false);
   };
