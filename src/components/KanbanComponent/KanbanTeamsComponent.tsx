@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import {
   Container,
   Grid,
@@ -9,90 +9,77 @@ import {
   ListItemText,
   ListItem,
   Card,
-  CardContent,
   Button,
-  FormControl,
-  TextField,
+  makeStyles,
 } from '@material-ui/core';
 import { RepoFormComponent } from './RepoFormComponent/RepoFormComponent';
 
-const defaultFormValues = {
-  ghUsername: '',
-  repository: '',
-};
+const useStyles = makeStyles({
+  button: {
+    textTransform: 'none',
+  },
+});
 
-export const KanbanTeams = () => {
-  const [formVisible, setFormVisible] = useState(false);
-  const [repoNames, setRepoNames] = useState([]);
-
-  const handleClick = () => {
-    console.log('handle click');
-    setFormVisible(true);
+export const KanbanTeams = ({
+  repositoryNames,
+  username,
+  setUserRepoView,
+}: {
+  repositoryNames: String[] | undefined;
+  username: string | undefined;
+  setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
+}) => {
+  const classes = useStyles();
+  const handleRepoClick = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e.currentTarget.id);
+    setUserRepoView(parseInt(e.currentTarget.id));
   };
 
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      email_id: 'tristanigos@gmail.com',
-    }),
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      await fetch('http://localhost:7007/api/pr-tracker-backend/get-user-repos', requestOptions)
-        .then((response) => response.json())
-        .then((data) => console.log(JSON.parse(data[0].data)));
-    }
-    fetchData();
-  }, []);
+  console.log('REPO NAMES kanban teams', repositoryNames);
 
   return (
     <>
       <Box>
         <Typography variant="h5">Repositories</Typography>
       </Box>
-      <RepoFormComponent />
+      <RepoFormComponent username={username} />
       <List disablePadding>
-        <ListItem alignItems="flex-start" disableGutters>
-          <ListItemText
-            primary={
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">Team Repository 1</Typography>
-                </CardContent>
-              </Card>
-            }
-          />
-        </ListItem>
-        <ListItem alignItems="flex-start" disableGutters>
-          <ListItemText
-            primary={
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">Team Repository 1</Typography>
-                </CardContent>
-              </Card>
-            }
-          />
-        </ListItem>
-        <ListItem alignItems="flex-start" disableGutters>
-          <ListItemText
-            primary={
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">Team Repository 1</Typography>
-                </CardContent>
-              </Card>
-            }
-          />
-        </ListItem>
+        {repositoryNames?.map((repoName: String, i: number) => (
+          <ListItem alignItems="flex-start" disableGutters>
+            <ListItemText
+              primary={
+                <Card>
+                  <Button
+                    className={classes.button}
+                    value="repository-name"
+                    onClick={handleRepoClick}
+                    id={i.toString()}
+                  >
+                    {repoName}
+                  </Button>
+                </Card>
+              }
+            />
+          </ListItem>
+        ))}
       </List>
+      {repositoryNames &&
+        repositoryNames.map((repoName) => {
+          <div>{repoName}</div>;
+        })}
     </>
   );
 };
 
-export const KanbanTeamsComponent = () => {
+export const KanbanTeamsComponent = ({
+  userRepoNames,
+  setUserRepoView,
+  username,
+}: {
+  userRepoNames: String[] | undefined;
+  setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
+  username: string | undefined;
+}) => {
   return (
     <Grid item xs={2}>
       <Box
@@ -105,7 +92,11 @@ export const KanbanTeamsComponent = () => {
       >
         <Container disableGutters>
           <Box mr={2}>
-            <KanbanTeams />
+            <KanbanTeams
+              repositoryNames={userRepoNames}
+              username={username}
+              setUserRepoView={setUserRepoView}
+            />
           </Box>
         </Container>
         <Divider orientation="vertical" flexItem />
