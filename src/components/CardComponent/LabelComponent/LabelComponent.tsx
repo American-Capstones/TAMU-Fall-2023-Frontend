@@ -1,10 +1,11 @@
 import React from 'react';
 import { Chip } from '@material-ui/core';
+import { LabelType } from '../../KanbanComponent/KanbanComponent';
 
-export const Labels = (labels: Array<string>) => (
+export const Labels = (labels: LabelType[]) => (
   <>
-    {labels.map((item: any, i: number) => (
-      <Chip label={item} key={i} color="primary" />
+    {labels.map((item: LabelType, i: number) => (
+      <Chip label={item.name} key={i} color="primary" />
     ))}
   </>
 );
