@@ -27,20 +27,19 @@ export const PreviewComponent = ({
   };
 
   return query ? (
-    <>
-      <Drawer
-        anchor="right"
-        open={sideDrawOpen}
-        onClose={toggleDrawer(false)}
-        BackdropProps={{ invisible: true }}
-      >
-        <Box width={350} m={2} mt={8} alignItems="center" justifyContent="center">
-          <Box mt={2}>
-            <Typography variant="h4">{query.title}</Typography>
-            <div>{query.body}</div>
-          </Box>
+    <Drawer
+      anchor="right"
+      open={sideDrawOpen}
+      onClose={toggleDrawer(false)}
+      BackdropProps={{ invisible: true }}
+    >
+      <Box width={350} m={2} mt={8} alignItems="center" justifyContent="center">
+        <Box mt={2}>
+          <Typography variant="h4">{query.title}</Typography>
+          <div>{query.body}</div>
+        </Box>
 
-          {/* <Box mt={2}>
+        {/* <Box mt={2}>
             <Typography variant="h6">Assignees</Typography>
             {query.assignees.map((item: any) => (
               <div>{item.login}</div>
@@ -54,31 +53,28 @@ export const PreviewComponent = ({
             ))}
           </Box> */}
 
-          <Box mt={2}>
-            <Typography variant="h6">Labels</Typography>
-            {query?.labels.nodes.map((item: LabelType) => (
-              <Chip label={item.name} />
-            ))}
-          </Box>
-
-          <Box mt={2}>
-            <Typography variant="h6">Reviews</Typography>
-            {query.reviews.nodes.map((review: ReviewType) => (
-              <>
-                <div>{`Author: ${review.author.login}`}</div>
-                <div>{review.state === 'CHANGES_REQUESTED' ? `Body: ${review.body}` : ''}</div>
-                {review.comments.nodes.map((comment: CommentType) => (
-                  <>
-                    <div>{comment.author.login}</div>
-                    <div>{comment.body}</div>
-                  </>
-                ))}
-              </>
-            ))}
-          </Box>
+        <Box mt={2}>
+          <Typography variant="h6">Labels</Typography>
+          {query?.labels.nodes.map((item: LabelType) => <Chip label={item.name} />)}
         </Box>
-      </Drawer>
-    </>
+
+        <Box mt={2}>
+          <Typography variant="h6">Reviews</Typography>
+          {query.reviews.nodes.map((review: ReviewType) => (
+            <>
+              <div>{`Author: ${review.author.login}`}</div>
+              <div>{review.state === 'CHANGES_REQUESTED' ? `Body: ${review.body}` : ''}</div>
+              {review.comments.nodes.map((comment: CommentType) => (
+                <>
+                  <div>{comment.author.login}</div>
+                  <div>{comment.body}</div>
+                </>
+              ))}
+            </>
+          ))}
+        </Box>
+      </Box>
+    </Drawer>
   ) : (
     <></>
   );
