@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grid,
@@ -10,14 +10,31 @@ import {
   ListItem,
   Card,
   CardContent,
+  Button,
+  FormControl,
+  TextField,
 } from '@material-ui/core';
+import { RepoFormComponent } from './RepoFormComponent/RepoFormComponent';
+
+const defaultFormValues = {
+  ghUsername: '',
+  repository: '',
+};
 
 export const KanbanTeams = () => {
+  const [formVisible, setFormVisible] = useState(false);
+
+  const handleClick = () => {
+    console.log('handle click');
+    setFormVisible(true);
+  };
+
   return (
     <>
       <Box>
-        <Typography variant="h5">Teams</Typography>
+        <Typography variant="h5">Repositories</Typography>
       </Box>
+      <RepoFormComponent />
       <List disablePadding>
         <ListItem alignItems="flex-start" disableGutters>
           <ListItemText
