@@ -1,7 +1,13 @@
 import React from 'react';
 import { Grid, Typography, Divider, Box, Chip } from '@material-ui/core';
 
-export const KanbanColumnHeader = (columnName: string, columnLength: number) => {
+export const KanbanColumnHeader = ({
+  columnName,
+  columnLength,
+}: {
+  columnName: string;
+  columnLength: number;
+}) => {
   return (
     <Box mb={2} m={4}>
       <Grid container spacing={2}>
