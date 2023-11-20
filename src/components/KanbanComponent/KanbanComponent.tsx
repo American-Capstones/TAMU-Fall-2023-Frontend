@@ -8,19 +8,12 @@ import {
   HeaderLabel,
   SupportButton,
 } from '@backstage/core-components';
-// import { ExampleFetchComponent } from '../ExampleFetchComponent';
-import DEFINED_PRs from '../../res/PRS_DEFINED';
-import IN_PROGRESS_PRs from '../../res/PRS_INPROGRESS';
-import DONE_PRs from '../../res/PRS_DONE';
 import { PreviewComponent } from '../PreviewComponent/PreviewComponent';
-import { KanbanColumnHeader } from './KanbanColumnComponent/KanbanColumnHeaderComponent';
 import { KanbanTeamsComponent } from './KanbanTeamsComponent';
+import { KanbanBody } from './KanbanBodyComponent';
+import { RepoType, PRType } from './KanbanTypes';
 
 import { githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
-import { KanbanColumnBody } from './KanbanColumnBodyComponent';
-
-import { RepoType, PRType } from './KanbanTypes';
-import { KanbanBody } from './KanbanBodyComponent';
 
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<PRType>();
