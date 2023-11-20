@@ -1,23 +1,60 @@
-import { Container } from '@material-ui/core';
 import React from 'react';
-import { PRType } from './KanbanTypes';
-import { CardComponent } from '../CardComponent';
+import { PRType, RepoType } from './KanbanTypes';
+import { Grid } from '@material-ui/core';
+import { KanbanColumnHeader } from './KanbanColumnComponent/KanbanColumnHeaderComponent';
+import { KanbanColumnBody } from './KanbanColumnBodyComponent';
 
-export const KanbanColumnBody = ({
+export const KanbanBody = ({
+  allPullRequests,
   setQuery,
   setSideDrawOpen,
-  pullRequests,
+  userRepos,
 }: {
+  allPullRequests: PRType[];
   setQuery: React.Dispatch<React.SetStateAction<PRType | undefined>>;
   setSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  pullRequests: PRType[];
+  userRepos: RepoType[] | undefined;
 }) => {
+  const extractPRFromStatus = (state: string, state2?: string) => {
+    const PRsFromStatus: PRType[] = [];
+
+    allPullRequests.forEach((pullRequest) => {
+      if (pullRequest.state == state || pullRequest.state == state2) {
+        PRsFromStatus.push(pullRequest);
+      }
+    });
+
+    return PRsFromStatus;
+  };
+
+  const KanbanColumnHeaderAndBody = (state: string, header: string, state2?: string) => {
+    const PRsFromStatus = extractPRFromStatus(state, state2);
+    return (
+      <>
+        <KanbanColumnHeader columnName={header} columnLength={PRsFromStatus.length} />
+        {/* {userRepos && KanbanColumnBody(userRepos[userRepoView]?.data)} */}
+        {userRepos && (
+          <KanbanColumnBody
+            pullRequests={PRsFromStatus}
+            setQuery={setQuery}
+            setSideDrawOpen={setSideDrawOpen}
+          />
+        )}
+      </>
+    );
+  };
+
   return (
-    <Container style={{ maxHeight: 700, overflow: 'auto' }}>
-      {pullRequests &&
-        pullRequests.map((item: PRType, id: number) => (
-          <CardComponent data={item} key={id} onQuery={setQuery} onSideDrawOpen={setSideDrawOpen} />
-        ))}
-    </Container>
+    <>
+      <Grid item xs={4}>
+        {KanbanColumnHeaderAndBody('OPEN', 'Open')}
+      </Grid>
+      <Grid item xs={4}>
+        {KanbanColumnHeaderAndBody('IN_PROGRESS', 'In Progress')}
+      </Grid>
+      <Grid item xs={4}>
+        {KanbanColumnHeaderAndBody('CLOSED', 'Closed/Merged', 'MERGED')}
+      </Grid>
+    </>
   );
 };
