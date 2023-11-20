@@ -11,14 +11,34 @@ import {
   Card,
   Button,
   makeStyles,
+  ButtonGroup,
 } from '@material-ui/core';
 import { RepoFormComponent } from './RepoFormComponent/RepoFormComponent';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
+import CloseIcon from '@material-ui/icons/Close';
+import { configApiRef, githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles({
+  box: {
+    display: 'flex',
+    justifyContent: 'center',
+    margin: '10px 0',
+  },
   button: {
+    padding: '0px',
+    width: 'inherit',
+  },
+  buttonLeft: {
+    padding: '0',
+  },
+  buttonRight: {
+    width: 'max-content',
     textTransform: 'none',
   },
+  toggleButtonGroup: {
+    width: '100%',
+  },
+  buttonGroup: {},
 });
 
 export const KanbanTeams = ({
@@ -42,6 +62,27 @@ export const KanbanTeams = ({
     }
   };
 
+  const config = useApi(configApiRef);
+  const ghecAuthApi = useApi(githubAuthApiRef);
+
+  const handleRepoClear = async (e: React.MouseEvent<HTMLElement>, repoName: string) => {
+    console.log('CLEAR', repoName);
+
+    const backstageUserIdentity = await ghecAuthApi.getProfile();
+
+    await fetch(`${config.getString('backend.baseUrl')}/api/pr-tracker-backend/delete-user-repo`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user_id: backstageUserIdentity?.displayName,
+        repository: repoName,
+      }),
+    }).then((response) => {
+      console.log('RESPONSE', response);
+      window.location.reload();
+    });
+  };
+
   return (
     <>
       <Box>
@@ -49,34 +90,30 @@ export const KanbanTeams = ({
       </Box>
       <RepoFormComponent username={username} />
 
-      <ToggleButtonGroup orientation="vertical" value={view} exclusive onChange={handleRepoClick}>
+      <ToggleButtonGroup
+        className={classes.toggleButtonGroup}
+        orientation="vertical"
+        value={view}
+        exclusive
+        onChange={handleRepoClick}
+      >
         {repositoryNames?.map((repoName: string, i: number) => (
           <ToggleButton className={classes.button} key={i} value={`${i}`}>
-            <Typography>{repoName}</Typography>
+            <Typography className={classes.buttonRight}>{repoName}</Typography>
+            <Button
+              onClick={(e) => {
+                handleRepoClear(e, repoName);
+              }}
+              className={classes.buttonLeft}
+            >
+              <CloseIcon />
+            </Button>
+            {/* <Button className={classes.buttonLeft}>{repoName}</Button> */}
+            {/* <ButtonGroup variant="text" className={classes.buttonGroup}>
+            </ButtonGroup> */}
           </ToggleButton>
         ))}
       </ToggleButtonGroup>
-
-      {/* <List disablePadding>
-        {repositoryNames?.map((repoName: string, i: number) => (
-          <ListItem key={i} alignItems="flex-start" disableGutters>
-            <ListItemText
-              primary={
-                <Card>
-                  <Button
-                    className={classes.button}
-                    value="repository-name"
-                    onClick={handleRepoClick}
-                    id={`${i}`}
-                  >
-                    {repoName}
-                  </Button>
-                </Card>
-              }
-            />
-          </ListItem>
-        ))}
-      </List> */}
     </>
   );
 };
