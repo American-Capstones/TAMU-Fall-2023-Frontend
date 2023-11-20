@@ -1,8 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Chip, Divider, Typography } from '@material-ui/core';
-import { InfoCard } from '@backstage/core-components';
 import { Labels } from './LabelComponent/LabelComponent';
-import { LabelType, PRType } from '../KanbanComponent/KanbanTypes';
+import { PRType } from '../KanbanComponent/KanbanTypes';
 
 interface CardComponentProps {
   data: PRType;
