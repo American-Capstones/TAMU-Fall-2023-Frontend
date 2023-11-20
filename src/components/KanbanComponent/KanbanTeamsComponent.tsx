@@ -25,7 +25,7 @@ export const KanbanTeams = ({
   username,
   setUserRepoView,
 }: {
-  repositoryNames: String[] | undefined;
+  repositoryNames: string[] | undefined;
   username: string | undefined;
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
 }) => {
@@ -44,8 +44,8 @@ export const KanbanTeams = ({
       </Box>
       <RepoFormComponent username={username} />
       <List disablePadding>
-        {repositoryNames?.map((repoName: String, i: number) => (
-          <ListItem alignItems="flex-start" disableGutters>
+        {repositoryNames?.map((repoName: string, i: number) => (
+          <ListItem key={i} alignItems="flex-start" disableGutters>
             <ListItemText
               primary={
                 <Card>
@@ -53,7 +53,7 @@ export const KanbanTeams = ({
                     className={classes.button}
                     value="repository-name"
                     onClick={handleRepoClick}
-                    id={i.toString()}
+                    id={`${i}`}
                   >
                     {repoName}
                   </Button>
@@ -76,10 +76,12 @@ export const KanbanTeamsComponent = ({
   setUserRepoView,
   username,
 }: {
-  userRepoNames: String[] | undefined;
+  userRepoNames: string[] | undefined;
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
   username: string | undefined;
 }) => {
+  console.log('KANBAN TEAMS USERNAME', username);
+
   return (
     <Grid item xs={2}>
       <Box

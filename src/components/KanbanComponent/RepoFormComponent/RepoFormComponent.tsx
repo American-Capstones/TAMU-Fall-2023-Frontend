@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Grid, TextField, makeStyles } from '@material-ui/core';
+import { useApi, configApiRef } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,31 +17,27 @@ export const RepoFormComponent = ({ username }: { username: string | undefined }
   };
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formVisible, setFormVisible] = useState(false);
-
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      user_id: formValues.ghUsername,
-      repository: formValues.repositoryName,
-    }),
-  };
-
   const classes = useStyles();
+
+  const config = useApi(configApiRef);
 
   const handleClick = () => {
     console.log('handle click');
-    setFormVisible(formVisible ? false : true);
+    setFormVisible((prevFormVisible) => !prevFormVisible);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     console.log(e);
     // post
     if (formValues.repositoryName !== '') {
-      await fetch(
-        'http://localhost:7007/api/pr-tracker-backend/add-user-repo',
-        requestOptions,
-      ).then((response) => console.log(response));
+      await fetch(`${config.getString('backend.baseUrl')}/api/pr-tracker-backend/add-user-repo`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: formValues.ghUsername,
+          repository: formValues.repositoryName,
+        }),
+      }).then((response) => console.log(response));
     }
     setFormValues(initialFormValues);
     setFormVisible(false);

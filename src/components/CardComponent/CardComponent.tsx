@@ -6,7 +6,6 @@ import { PRType } from '../KanbanComponent/KanbanComponent';
 
 interface CardComponentProps {
   data: PRType;
-  key: string | number;
   onQuery: React.Dispatch<React.SetStateAction<PRType | undefined>>;
   onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -23,7 +22,10 @@ export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentPr
   return (
     <div style={{ paddingBottom: '10px', cursor: 'pointer' }} onClick={handleClick}>
       <InfoCard title={data.title} subheader={<>{Labels(data?.labels.nodes)}</>}>
-        <Typography variant="body1">{`${data.body?.substring(0, 120)}...`}</Typography>
+        <Typography noWrap={true} variant="body1">{`${data.body?.substring(
+          0,
+          120,
+        )}...`}</Typography>
       </InfoCard>
     </div>
   );

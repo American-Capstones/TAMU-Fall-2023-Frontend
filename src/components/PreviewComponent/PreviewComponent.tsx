@@ -16,14 +16,14 @@ export const PreviewComponent = ({
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     console.log(query);
     if (
-      event.type === 'keydown' &&
-      ((event as React.KeyboardEvent).key === 'Tab' ||
-        (event as React.KeyboardEvent).key === 'Shift')
+      !(
+        event.type === 'keydown' &&
+        ((event as React.KeyboardEvent).key === 'Tab' ||
+          (event as React.KeyboardEvent).key === 'Shift')
+      )
     ) {
-      return;
+      onSideDrawOpen(open);
     }
-
-    onSideDrawOpen(open);
   };
 
   return query ? (
@@ -56,8 +56,8 @@ export const PreviewComponent = ({
 
           <Box mt={2}>
             <Typography variant="h6">Labels</Typography>
-            {query?.labels.nodes.map((item: LabelType) => (
-              <Chip label={item.name} />
+            {query?.labels.nodes.map((item: LabelType, index: number) => (
+              <Chip key={index} label={item.name} />
             ))}
           </Box>
 

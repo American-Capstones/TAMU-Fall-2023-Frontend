@@ -18,6 +18,7 @@ import { KanbanColumnHeader } from './KanbanColumnComponent/KanbanColumnHeaderCo
 import { KanbanTeamsComponent } from './KanbanTeamsComponent';
 
 import { githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
+import { KanbanColumnBody } from './KanbanBodyComponent';
 
 export type CommentType = {
   author: {
@@ -73,50 +74,32 @@ export type RepoType = {
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<PRType>();
   const [userRepos, setUserRepos] = useState<RepoType[]>();
-  const [userRepoNames, setUserRepoNames] = useState<String[]>();
+  const [userRepoNames, setUserRepoNames] = useState<string[]>();
   const [sideDrawOpen, setSideDrawOpen] = useState(false);
   const [userRepoView, setUserRepoView] = useState(0);
-  const [username, setUsername] = useState<string | undefined>('');
-
-  const KanbanColumnBody = (pullRequests: PRType[]) => {
-    console.log('pullrequest', pullRequests);
-
-    return (
-      <Container style={{ maxHeight: 700, overflow: 'auto' }}>
-        {pullRequests &&
-          pullRequests.map((item: PRType, id: number) => (
-            <CardComponent
-              data={item}
-              key={id}
-              onQuery={setQuery}
-              onSideDrawOpen={setSideDrawOpen}
-            />
-          ))}
-      </Container>
-    );
-  };
+  const [username, setUsername] = useState<string | undefined>();
 
   const requestOptions = {
-    method: 'POST',
+    method: 'GET',
     headers: { 'Content-Type': 'application/json' },
-    body: '',
   };
 
   const ghecAuthApi = useApi(githubAuthApiRef);
   useEffect(() => {
     async function fetchData() {
       const backstageUserIdentity = await ghecAuthApi.getProfile();
-      setUsername(backstageUserIdentity?.displayName);
-      requestOptions.body = JSON.stringify({ user_id: backstageUserIdentity?.displayName });
-
-      console.log('reqoptions', requestOptions);
-      await fetch('http://localhost:7007/api/pr-tracker-backend/get-user-repos', requestOptions)
+      const body = { user_id: backstageUserIdentity?.displayName };
+      setUsername(body.user_id);
+      await fetch(
+        `http://localhost:7007/api/pr-tracker-backend/get-user-repos/${body.user_id}`,
+        requestOptions,
+      )
         .then((response) => response.json())
         .then((data) => {
           console.log('DATA', data);
           setUserRepos(data);
 
-          const repoNames: String[] = [];
+          const repoNames: string[] = [];
           data.map((repo: RepoType) => {
             repoNames.push(repo.repository);
           });
@@ -157,7 +140,14 @@ export const KanbanComponent = () => {
             <Grid container spacing={3} direction="row">
               <Grid item xs={4}>
                 {KanbanColumnHeader('Defined', DEFINED_PRs.length)}
-                {userRepos && KanbanColumnBody(userRepos[userRepoView]?.data)}
+                {/* {userRepos && KanbanColumnBody(userRepos[userRepoView]?.data)} */}
+                {userRepos && (
+                  <KanbanColumnBody
+                    pullRequests={userRepos[userRepoView]?.data}
+                    setQuery={setQuery}
+                    setSideDrawOpen={setSideDrawOpen}
+                  />
+                )}
               </Grid>
               <Grid item xs={4}>
                 {KanbanColumnHeader('In Progress', IN_PROGRESS_PRs.length)}
