@@ -18,6 +18,10 @@ export const KanbanBody = ({
   const extractPRFromStatus = (state: string, state2?: string) => {
     const PRsFromStatus: PRType[] = [];
 
+    if (allPullRequests === undefined) {
+      return PRsFromStatus;
+    }
+
     allPullRequests.forEach((pullRequest) => {
       if (pullRequest.state == state || pullRequest.state == state2) {
         PRsFromStatus.push(pullRequest);
