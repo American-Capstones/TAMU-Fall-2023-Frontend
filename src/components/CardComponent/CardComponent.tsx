@@ -1,8 +1,8 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import { Card, CardContent, Chip, Divider, Typography } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
 import { Labels } from './LabelComponent/LabelComponent';
-import { PRType } from '../KanbanComponent/KanbanTypes';
+import { LabelType, PRType } from '../KanbanComponent/KanbanTypes';
 
 interface CardComponentProps {
   data: PRType;
@@ -17,16 +17,21 @@ export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentPr
     onSideDrawOpen(true);
   };
 
-  // console.log('data', data);
-
   return (
     <div style={{ paddingBottom: '10px', cursor: 'pointer' }} onClick={handleClick}>
-      <InfoCard title={data.title} subheader={<>{Labels(data?.labels.nodes)}</>}>
-        <Typography noWrap={true} variant="body1">{`${data.body?.substring(
-          0,
-          120,
-        )}...`}</Typography>
-      </InfoCard>
+      <Card>
+        <CardContent>
+          <Chip label={`${data.stateDuration} days`} color="primary" />
+          <Chip label={`${data.numApprovals} approvers`} color="primary" />
+          <Typography variant="h5">{data.title}</Typography>
+          <Labels labels={data?.labels.nodes} />
+          <Divider />
+          <Typography noWrap={true} variant="body1">{`${data.body?.substring(
+            0,
+            120,
+          )}...`}</Typography>
+        </CardContent>
+      </Card>
     </div>
   );
 };
