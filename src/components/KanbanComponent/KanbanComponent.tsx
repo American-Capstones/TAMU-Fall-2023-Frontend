@@ -9,7 +9,6 @@ import {
   SupportButton,
 } from '@backstage/core-components';
 // import { ExampleFetchComponent } from '../ExampleFetchComponent';
-import { CardComponent } from '../CardComponent';
 import DEFINED_PRs from '../../res/PRS_DEFINED';
 import IN_PROGRESS_PRs from '../../res/PRS_INPROGRESS';
 import DONE_PRs from '../../res/PRS_DONE';

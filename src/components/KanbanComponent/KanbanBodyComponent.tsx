@@ -1,5 +1,5 @@
 import { Container } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { PRType } from './KanbanComponent';
 import { CardComponent } from '../CardComponent';
 
