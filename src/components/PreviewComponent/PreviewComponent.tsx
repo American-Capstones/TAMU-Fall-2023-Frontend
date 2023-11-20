@@ -76,22 +76,6 @@ export const PreviewComponent = ({
           ))}
         </Box>
       </Box>
-
-      <Box mt={2}>
-        <Typography variant="h6">Reviews</Typography>
-        {query.reviews.nodes.map((review: ReviewType) => (
-          <>
-            <div>{`Author: ${review.author.login}`}</div>
-            <div>{review.state === 'CHANGES_REQUESTED' ? `Body: ${review.body}` : ''}</div>
-            {review.comments.nodes.map((comment: CommentType) => (
-              <>
-                <div>{comment.author.login}</div>
-                <div>{comment.body}</div>
-              </>
-            ))}
-          </>
-        ))}
-      </Box>
     </Drawer>
   ) : (
     <></>
