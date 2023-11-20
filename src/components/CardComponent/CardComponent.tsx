@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
 import { Labels } from './LabelComponent/LabelComponent';
-import { PRType } from '../KanbanComponent/KanbanComponent';
+import { PRType } from '../KanbanComponent/KanbanTypes';
 
 interface CardComponentProps {
   data: PRType;

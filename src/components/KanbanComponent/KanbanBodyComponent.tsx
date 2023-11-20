@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core';
 import React from 'react';
-import { PRType } from './KanbanComponent';
+import { PRType } from './KanbanTypes';
 import { CardComponent } from '../CardComponent';
 
 export const KanbanColumnBody = ({

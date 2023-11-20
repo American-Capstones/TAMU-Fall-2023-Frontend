@@ -1,6 +1,6 @@
 import { Drawer, Typography, Box, Chip } from '@material-ui/core';
 import React from 'react';
-import { CommentType, LabelType, PRType, ReviewType } from '../KanbanComponent/KanbanComponent';
+import { CommentType, LabelType, PRType, ReviewType } from '../KanbanComponent/KanbanTypes';
 
 export const PreviewComponent = ({
   query,
