@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   Grid,
@@ -13,6 +13,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { RepoFormComponent } from './RepoFormComponent/RepoFormComponent';
+import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 
 const useStyles = makeStyles({
   button: {
@@ -30,12 +31,16 @@ export const KanbanTeams = ({
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
 }) => {
   const classes = useStyles();
-  const handleRepoClick = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e.currentTarget.id);
-    setUserRepoView(parseInt(e.currentTarget.id));
-  };
+  const [view, setView] = useState('0');
 
-  console.log('REPO NAMES kanban teams', repositoryNames);
+  const handleRepoClick = (e: React.MouseEvent<HTMLElement>, nextView: string) => {
+    console.log('handlerepoclick', nextView, e.currentTarget);
+
+    if (typeof nextView !== 'undefined' && nextView != null) {
+      setView(nextView);
+      setUserRepoView(parseInt(nextView));
+    }
+  };
 
   return (
     <>
@@ -43,7 +48,16 @@ export const KanbanTeams = ({
         <Typography variant="h5">Repositories</Typography>
       </Box>
       <RepoFormComponent username={username} />
-      <List disablePadding>
+
+      <ToggleButtonGroup orientation="vertical" value={view} exclusive onChange={handleRepoClick}>
+        {repositoryNames?.map((repoName: string, i: number) => (
+          <ToggleButton className={classes.button} key={i} value={`${i}`}>
+            <Typography>{repoName}</Typography>
+          </ToggleButton>
+        ))}
+      </ToggleButtonGroup>
+
+      {/* <List disablePadding>
         {repositoryNames?.map((repoName: string, i: number) => (
           <ListItem key={i} alignItems="flex-start" disableGutters>
             <ListItemText
@@ -62,11 +76,7 @@ export const KanbanTeams = ({
             />
           </ListItem>
         ))}
-      </List>
-      {repositoryNames &&
-        repositoryNames.map((repoName) => {
-          <div>{repoName}</div>;
-        })}
+      </List> */}
     </>
   );
 };
