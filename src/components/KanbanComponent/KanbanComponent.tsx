@@ -17,9 +17,10 @@ import { KanbanColumnHeader } from './KanbanColumnComponent/KanbanColumnHeaderCo
 import { KanbanTeamsComponent } from './KanbanTeamsComponent';
 
 import { githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
-import { KanbanColumnBody } from './KanbanBodyComponent';
+import { KanbanColumnBody } from './KanbanColumnBodyComponent';
 
 import { RepoType, PRType } from './KanbanTypes';
+import { KanbanBody } from './KanbanBodyComponent';
 
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<PRType>();
@@ -88,9 +89,9 @@ export const KanbanComponent = () => {
               <SupportButton>A description of your plugin goes here.</SupportButton>
             </ContentHeader>
             <Grid container spacing={3} direction="row">
-              <Grid item xs={4}>
+              {/* <Grid item xs={4}>
                 {KanbanColumnHeader('Defined', DEFINED_PRs.length)}
-                {/* {userRepos && KanbanColumnBody(userRepos[userRepoView]?.data)} */}
+                {userRepos && KanbanColumnBody(userRepos[userRepoView]?.data)}
                 {userRepos && (
                   <KanbanColumnBody
                     pullRequests={userRepos[userRepoView]?.data}
@@ -101,15 +102,20 @@ export const KanbanComponent = () => {
               </Grid>
               <Grid item xs={4}>
                 {KanbanColumnHeader('In Progress', IN_PROGRESS_PRs.length)}
-                {/* {KanbanColumnBody(IN_PROGRESS_PRs)} */}
+                {KanbanColumnBody(IN_PROGRESS_PRs)}
               </Grid>
               <Grid item xs={4}>
                 {KanbanColumnHeader('Done', DONE_PRs.length)}
-                {/* {KanbanColumnBody(DONE_PRs)} */}
-              </Grid>
-              {/* <Grid item>
-          <ExampleFetchComponent />
-        </Grid> */}
+                {KanbanColumnBody(DONE_PRs)}
+              </Grid> */}
+              {userRepos && (
+                <KanbanBody
+                  allPullRequests={userRepos[userRepoView]?.data}
+                  setQuery={setQuery}
+                  setSideDrawOpen={setSideDrawOpen}
+                  userRepos={userRepos}
+                />
+              )}
             </Grid>
           </Grid>
         </Grid>
