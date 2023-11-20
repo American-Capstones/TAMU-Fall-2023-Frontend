@@ -42,6 +42,8 @@ export type PRType = {
   title: string;
   updatedAt: string;
   url: string;
+  stateDuration: number;
+  numApprovals: number;
 };
 
 export type RepoType = {
