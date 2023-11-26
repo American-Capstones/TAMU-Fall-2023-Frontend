@@ -45,20 +45,32 @@ export const KanbanTeams = ({
   repositoryNames,
   username,
   setUserRepoView,
+  setUserPageView,
 }: {
   repositoryNames: string[] | undefined;
   username: string | undefined;
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
+  setUserPageView: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const classes = useStyles();
-  const [view, setView] = useState('0');
+  const [repoSelect, setRepoSelect] = useState('0');
+  const [pageSelect, setPageSelect] = useState('Kanban');
 
   const handleRepoClick = (e: React.MouseEvent<HTMLElement>, nextView: string) => {
     console.log('handlerepoclick', nextView, e.currentTarget);
 
     if (typeof nextView !== 'undefined' && nextView != null) {
-      setView(nextView);
+      setRepoSelect(nextView);
       setUserRepoView(parseInt(nextView));
+    }
+  };
+
+  const handlePageClick = (e: React.MouseEvent<HTMLElement>, nextView: string) => {
+    console.log('handlepageclick', nextView, e.currentTarget);
+
+    if (typeof nextView !== 'undefined' && nextView != null) {
+      setPageSelect(nextView);
+      setUserPageView(nextView);
     }
   };
 
@@ -85,6 +97,15 @@ export const KanbanTeams = ({
 
   return (
     <>
+      <ToggleButtonGroup
+        className={classes.toggleButtonGroup}
+        value={pageSelect}
+        exclusive
+        onChange={handlePageClick}
+      >
+        <ToggleButton value="Kanban">Kanban</ToggleButton>
+        <ToggleButton value="Analytics">Analytics</ToggleButton>
+      </ToggleButtonGroup>
       <Box>
         <Typography variant="h5">Repositories</Typography>
       </Box>
@@ -93,7 +114,7 @@ export const KanbanTeams = ({
       <ToggleButtonGroup
         className={classes.toggleButtonGroup}
         orientation="vertical"
-        value={view}
+        value={repoSelect}
         exclusive
         onChange={handleRepoClick}
       >
@@ -121,9 +142,11 @@ export const KanbanTeams = ({
 export const KanbanTeamsComponent = ({
   userRepoNames,
   setUserRepoView,
+  setUserPageView,
   username,
 }: {
   userRepoNames: string[] | undefined;
+  setUserPageView: React.Dispatch<React.SetStateAction<string>>;
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
   username: string | undefined;
 }) => {
@@ -143,6 +166,7 @@ export const KanbanTeamsComponent = ({
               repositoryNames={userRepoNames}
               username={username}
               setUserRepoView={setUserRepoView}
+              setUserPageView={setUserPageView}
             />
           </Box>
         </Container>

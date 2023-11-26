@@ -14,6 +14,7 @@ import { KanbanBody } from './KanbanBodyComponent';
 import { RepoType, PRType } from './KanbanTypes';
 
 import { githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
+import { response } from 'msw';
 
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<PRType>();
@@ -21,6 +22,7 @@ export const KanbanComponent = () => {
   const [userRepoNames, setUserRepoNames] = useState<string[]>();
   const [sideDrawOpen, setSideDrawOpen] = useState(false);
   const [userRepoView, setUserRepoView] = useState(0);
+  const [userPageView, setUserPageView] = useState('Kanban');
   const [username, setUsername] = useState<string | undefined>();
 
   const requestOptions = {
@@ -49,6 +51,15 @@ export const KanbanComponent = () => {
           });
           setUserRepoNames(repoNames);
         });
+
+      await fetch(
+        `http://localhost:7007/api/pr-tracker-backend/get-analytics/tristanigos`,
+        requestOptions,
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('analytics', data);
+        });
     }
     fetchData();
   }, []);
@@ -65,27 +76,33 @@ export const KanbanComponent = () => {
             <KanbanTeamsComponent
               userRepoNames={userRepoNames}
               setUserRepoView={setUserRepoView}
+              setUserPageView={setUserPageView}
               username={username}
             />
           ) : (
             <></>
           )}
-
-          <Grid item xs={10}>
-            <ContentHeader title="American Airlines PR Board">
-              <SupportButton>A description of your plugin goes here.</SupportButton>
-            </ContentHeader>
-            <Grid container spacing={3} direction="row">
-              {userRepos && (
-                <KanbanBody
-                  allPullRequests={userRepos[userRepoView]?.data}
-                  setQuery={setQuery}
-                  setSideDrawOpen={setSideDrawOpen}
-                  userRepos={userRepos}
-                />
-              )}
-            </Grid>
-          </Grid>
+          {userPageView === 'Kanban' ? (
+            <>
+              <Grid item xs={10}>
+                <ContentHeader title="American Airlines PR Board">
+                  <SupportButton>A description of your plugin goes here.</SupportButton>
+                </ContentHeader>
+                <Grid container spacing={3} direction="row">
+                  {userRepos && (
+                    <KanbanBody
+                      allPullRequests={userRepos[userRepoView]?.data}
+                      setQuery={setQuery}
+                      setSideDrawOpen={setSideDrawOpen}
+                      userRepos={userRepos}
+                    />
+                  )}
+                </Grid>
+              </Grid>
+            </>
+          ) : (
+            <></>
+          )}
         </Grid>
         <Container maxWidth="sm">
           {userRepos ? (
