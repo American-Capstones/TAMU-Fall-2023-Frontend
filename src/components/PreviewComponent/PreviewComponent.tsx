@@ -1,5 +1,5 @@
 import { Drawer, Typography, Box, Chip } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { CommentType, LabelType, PRType, ReviewType } from '../KanbanComponent/KanbanTypes';
 import { PriorityDialogComponent } from './PriorityDialogComponent';
 import { PrioritySelectComponent } from './PrioritySelectComponent';
@@ -9,14 +9,18 @@ export const PreviewComponent = ({
   sideDrawOpen,
   onSideDrawOpen,
 }: {
-  query?: PRType;
+  query: PRType | undefined;
   sideDrawOpen: boolean;
   onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
-  console.log('OKAY', query);
+  const [currentPriority, setCurrentPriority] = useState<string | undefined>(query?.priority);
+
+  // update priority client-side, reflects when drawer re-toggled
+  useEffect(() => {
+    setCurrentPriority(query?.priority);
+  }, [query?.priority]);
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    console.log(query);
     if (
       !(
         event.type === 'keydown' &&
@@ -79,7 +83,11 @@ export const PreviewComponent = ({
         </Box>
 
         <Box sx={{ minWidth: 120 }}>
-          <PrioritySelectComponent />
+          <PrioritySelectComponent
+            id={query.id}
+            currentPriority={currentPriority}
+            setCurrentPriority={setCurrentPriority}
+          />
           <PriorityDialogComponent />
         </Box>
       </Box>

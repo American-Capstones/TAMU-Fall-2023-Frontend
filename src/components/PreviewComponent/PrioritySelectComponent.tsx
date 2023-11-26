@@ -7,6 +7,7 @@ import {
   TrendingFlat,
   TrendingUp,
 } from '@material-ui/icons';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -22,14 +23,34 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const PrioritySelectComponent = () => {
+export const PrioritySelectComponent = ({
+  id,
+  currentPriority,
+  setCurrentPriority,
+}: {
+  id: string;
+  currentPriority: string | undefined;
+  setCurrentPriority: React.Dispatch<React.SetStateAction<string | undefined>>;
+}) => {
   const classes = useStyles();
-  const [priority, setPriority] = React.useState<string>('');
+  const [priority, setPriority] = React.useState<string>(currentPriority!);
+  const config = useApi(configApiRef);
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setPriority(event.target.value as string);
+  // update priority server-side, reflects on reload
+  const handleChange = async (e: React.ChangeEvent<{ value: unknown }>) => {
+    setPriority(e.target.value as string);
 
-    // post to db
+    await fetch(`${config.getString('backend.baseUrl')}/api/pr-tracker-backend/set-pr-priority`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        pull_request_id: id,
+        priority: e.target.value,
+      }),
+    }).then((response) => {
+      console.log('RESPONSE', response);
+      setCurrentPriority(e.target.value as string);
+    });
   };
 
   return (
