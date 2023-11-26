@@ -47,16 +47,10 @@ export const KanbanComponent = () => {
           data.map((repo: RepoType) => {
             repoNames.push(repo.repository);
           });
-
-          console.log('REPONAMES', repoNames);
-
           setUserRepoNames(repoNames);
         });
-
-      console.log(3);
     }
     fetchData();
-    console.log('USER REPOS', userRepos);
   }, []);
 
   return (
@@ -82,25 +76,6 @@ export const KanbanComponent = () => {
               <SupportButton>A description of your plugin goes here.</SupportButton>
             </ContentHeader>
             <Grid container spacing={3} direction="row">
-              {/* <Grid item xs={4}>
-                {KanbanColumnHeader('Defined', DEFINED_PRs.length)}
-                {userRepos && KanbanColumnBody(userRepos[userRepoView]?.data)}
-                {userRepos && (
-                  <KanbanColumnBody
-                    pullRequests={userRepos[userRepoView]?.data}
-                    setQuery={setQuery}
-                    setSideDrawOpen={setSideDrawOpen}
-                  />
-                )}
-              </Grid>
-              <Grid item xs={4}>
-                {KanbanColumnHeader('In Progress', IN_PROGRESS_PRs.length)}
-                {KanbanColumnBody(IN_PROGRESS_PRs)}
-              </Grid>
-              <Grid item xs={4}>
-                {KanbanColumnHeader('Done', DONE_PRs.length)}
-                {KanbanColumnBody(DONE_PRs)}
-              </Grid> */}
               {userRepos && (
                 <KanbanBody
                   allPullRequests={userRepos[userRepoView]?.data}
@@ -113,11 +88,15 @@ export const KanbanComponent = () => {
           </Grid>
         </Grid>
         <Container maxWidth="sm">
-          <PreviewComponent
-            query={query}
-            sideDrawOpen={sideDrawOpen}
-            onSideDrawOpen={setSideDrawOpen}
-          />
+          {userRepos ? (
+            <PreviewComponent
+              query={query}
+              sideDrawOpen={sideDrawOpen}
+              onSideDrawOpen={setSideDrawOpen}
+            />
+          ) : (
+            <></>
+          )}
         </Container>
       </Content>
     </Page>

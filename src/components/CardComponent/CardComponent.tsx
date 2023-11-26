@@ -11,7 +11,6 @@ interface CardComponentProps {
 
 export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentProps) => {
   const handleClick = () => {
-    console.log(data);
     onQuery(data);
     onSideDrawOpen(true);
   };

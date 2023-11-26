@@ -127,8 +127,6 @@ export const KanbanTeamsComponent = ({
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
   username: string | undefined;
 }) => {
-  console.log('KANBAN TEAMS USERNAME', username);
-
   return (
     <Grid item xs={2}>
       <Box
