@@ -44,6 +44,9 @@ export type PRType = {
   url: string;
   stateDuration: number;
   numApprovals: number;
+  id: string;
+  priority: string;
+  description: string;
 };
 
 export type RepoType = {
