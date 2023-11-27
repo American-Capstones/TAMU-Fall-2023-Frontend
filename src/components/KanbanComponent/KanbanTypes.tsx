@@ -53,3 +53,30 @@ export type RepoType = {
   repository: string;
   data: PRType[];
 };
+
+export type LeaderBoardDataType = {
+  additions: number;
+  created_at: string;
+  deletions: number;
+  month: number;
+  pull_requests_comments: number;
+  pull_requests_merged: number;
+  pull_requests_reviews: number;
+  repository: string;
+  updated_at: string;
+  user_id: string;
+  year: number;
+};
+
+export type LeaderBoardType = {
+  year: string;
+  data: LeaderBoardDataType[] | [];
+};
+
+export type AnalyticsType = {
+  repositoryName: string;
+  cycleTimeData: number[][];
+  firstReviewData: number[][];
+  totalPullRequestsMerged: number[][];
+  leaderBoard: LeaderBoardType[] | [];
+};
