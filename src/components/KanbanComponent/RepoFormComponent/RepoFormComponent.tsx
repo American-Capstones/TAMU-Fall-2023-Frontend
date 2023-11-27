@@ -8,6 +8,9 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(3),
     },
   },
+  item: {
+    margin: theme.spacing(0.5),
+  },
 }));
 
 export const RepoFormComponent = ({ username }: { username: string | undefined }) => {
@@ -53,27 +56,24 @@ export const RepoFormComponent = ({ username }: { username: string | undefined }
   };
   return (
     <>
-      <Button variant="contained" onClick={handleClick}>
+      <Button variant="contained" onClick={handleClick} className={classes.item}>
         Add a Repository
       </Button>
 
       {!formVisible ? null : (
-        <Grid container direction="column" spacing={3}>
-          <Grid item xs={12}>
-            <form className={classes.root} onSubmit={handleSubmit}>
-              <TextField
-                name="repositoryName"
-                variant="outlined"
-                label="Repository Name"
-                value={formValues.repositoryName}
-                onChange={handleInputChange}
-              />
-              <Button variant="contained" type="submit">
-                Submit Info
-              </Button>
-            </form>
-          </Grid>
-        </Grid>
+        <form className={classes.root} onSubmit={handleSubmit}>
+          <TextField
+            name="repositoryName"
+            variant="outlined"
+            label="Repository Name"
+            value={formValues.repositoryName}
+            onChange={handleInputChange}
+            className={classes.item}
+          />
+          <Button variant="contained" type="submit" className={classes.item}>
+            Submit Info
+          </Button>
+        </form>
       )}
     </>
   );

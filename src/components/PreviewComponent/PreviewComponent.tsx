@@ -1,8 +1,45 @@
-import { Drawer, Typography, Box, Chip } from '@material-ui/core';
+import {
+  Drawer,
+  Typography,
+  Box,
+  Chip,
+  makeStyles,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { CommentType, LabelType, PRType, ReviewType } from '../KanbanComponent/KanbanTypes';
 import { PriorityDialogComponent } from './PriorityDialogComponent';
 import { PrioritySelectComponent } from './PrioritySelectComponent';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+const useStyles = makeStyles({
+  typography: {
+    wordWrap: 'break-word',
+  },
+  accordion: {
+    boxShadow: 'none',
+    '&::before': {
+      backgroundColor: 'white',
+    },
+    '&.Mui-expanded': {
+      margin: '0',
+    },
+  },
+  accordionSummary: {
+    '&.Mui-expanded': {
+      minHeight: '0px',
+      margin: '0',
+    },
+    minHeight: '0px',
+    margin: '0',
+    padding: '0 32px 0 0',
+  },
+  accordionDetails: {
+    padding: '0px 16px 16px',
+  },
+});
 
 export const PreviewComponent = ({
   query,
@@ -13,6 +50,7 @@ export const PreviewComponent = ({
   sideDrawOpen: boolean;
   onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
+  const classes = useStyles();
   const [currentPriority, setCurrentPriority] = useState<string | undefined>(query?.priority);
 
   // update priority client-side, reflects when drawer re-toggled
@@ -41,8 +79,23 @@ export const PreviewComponent = ({
     >
       <Box width={350} m={2} mt={8} alignItems="center" justifyContent="center">
         <Box mt={2}>
-          <Typography variant="h4">{query.title}</Typography>
-          <div>{query.body}</div>
+          <Typography variant="h4" className={classes.typography}>
+            {query.title}
+          </Typography>
+
+          <Accordion classes={{ root: classes.accordion }}>
+            <AccordionSummary
+              classes={{ content: classes.accordionSummary, root: classes.accordionSummary }}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography variant="h6">Description</Typography>
+            </AccordionSummary>
+            <AccordionDetails classes={{ root: classes.accordionDetails }}>
+              <Typography>
+                <div>{query.body}</div>
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
         </Box>
 
         {/* <Box mt={2}>

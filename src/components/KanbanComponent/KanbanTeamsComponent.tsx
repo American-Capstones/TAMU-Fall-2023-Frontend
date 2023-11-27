@@ -1,18 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Container,
-  Grid,
-  Box,
-  Divider,
-  Typography,
-  List,
-  ListItemText,
-  ListItem,
-  Card,
-  Button,
-  makeStyles,
-  ButtonGroup,
-} from '@material-ui/core';
+import { Container, Grid, Box, Divider, Typography, Button, makeStyles } from '@material-ui/core';
 import { RepoFormComponent } from './RepoFormComponent/RepoFormComponent';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
 import CloseIcon from '@material-ui/icons/Close';
@@ -20,8 +7,6 @@ import { configApiRef, githubAuthApiRef, useApi } from '@backstage/core-plugin-a
 
 const useStyles = makeStyles({
   box: {
-    display: 'flex',
-    justifyContent: 'center',
     margin: '10px 0',
   },
   button: {
@@ -30,10 +15,14 @@ const useStyles = makeStyles({
   },
   buttonLeft: {
     padding: '0',
+    minWidth: '0',
+    color: 'rgba(0, 0, 0, 0.12)',
   },
   buttonRight: {
     width: 'max-content',
     textTransform: 'none',
+    paddingLeft: '16px',
+    color: 'rgba(0, 0, 0, 0.50)',
   },
   toggleButtonGroup: {
     width: '100%',
@@ -97,44 +86,54 @@ export const KanbanTeams = ({
 
   return (
     <>
-      <ToggleButtonGroup
-        className={classes.toggleButtonGroup}
-        value={pageSelect}
-        exclusive
-        onChange={handlePageClick}
-      >
-        <ToggleButton value="Kanban">Kanban</ToggleButton>
-        <ToggleButton value="Analytics">Analytics</ToggleButton>
-      </ToggleButtonGroup>
-      <Box>
-        <Typography variant="h5">Repositories</Typography>
+      <Box className={classes.box}>
+        <ToggleButtonGroup
+          className={classes.toggleButtonGroup}
+          value={pageSelect}
+          exclusive
+          onChange={handlePageClick}
+        >
+          <ToggleButton value="Kanban">Kanban</ToggleButton>
+          <ToggleButton value="Analytics">Analytics</ToggleButton>
+        </ToggleButtonGroup>
       </Box>
-      <RepoFormComponent username={username} />
+      <Box className={classes.box}>
+        <Typography variant="h5">Repositories</Typography>
+        <RepoFormComponent username={username} />
+      </Box>
 
-      <ToggleButtonGroup
-        className={classes.toggleButtonGroup}
-        orientation="vertical"
-        value={repoSelect}
-        exclusive
-        onChange={handleRepoClick}
-      >
-        {repositoryNames?.map((repoName: string, i: number) => (
-          <ToggleButton className={classes.button} key={i} value={`${i}`}>
-            <Typography className={classes.buttonRight}>{repoName}</Typography>
-            <Button
-              onClick={(e) => {
-                handleRepoClear(e, repoName);
-              }}
-              className={classes.buttonLeft}
-            >
-              <CloseIcon />
-            </Button>
-            {/* <Button className={classes.buttonLeft}>{repoName}</Button> */}
-            {/* <ButtonGroup variant="text" className={classes.buttonGroup}>
+      <Box className={classes.box}>
+        <ToggleButtonGroup
+          className={classes.toggleButtonGroup}
+          orientation="vertical"
+          value={repoSelect}
+          exclusive
+          onChange={handleRepoClick}
+        >
+          {repositoryNames?.map((repoName: string, i: number) => (
+            <ToggleButton className={classes.button} key={i} value={`${i}`}>
+              <Grid container spacing={0.5}>
+                <Grid item xs={10}>
+                  <Typography className={classes.buttonRight}>{repoName}</Typography>
+                </Grid>
+                <Grid item xs={2}>
+                  <Button
+                    onClick={(e) => {
+                      handleRepoClear(e, repoName);
+                    }}
+                    className={classes.buttonLeft}
+                  >
+                    <CloseIcon />
+                  </Button>
+                </Grid>
+              </Grid>
+              {/* <Button className={classes.buttonLeft}>{repoName}</Button> */}
+              {/* <ButtonGroup variant="text" className={classes.buttonGroup}>
             </ButtonGroup> */}
-          </ToggleButton>
-        ))}
-      </ToggleButtonGroup>
+            </ToggleButton>
+          ))}
+        </ToggleButtonGroup>
+      </Box>
     </>
   );
 };
