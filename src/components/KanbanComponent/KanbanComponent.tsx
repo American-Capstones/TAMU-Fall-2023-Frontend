@@ -13,8 +13,8 @@ import { KanbanTeamsComponent } from './KanbanTeamsComponent';
 import { KanbanBody } from './KanbanBodyComponent';
 import { RepoType, PRType } from './KanbanTypes';
 
-import { githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
-import { response } from 'msw';
+import { configApiRef, githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
+import { AnalyticsBody } from '../AnalyticsComponent/AnalyticsBodyComponent';
 
 export const KanbanComponent = () => {
   const [query, setQuery] = useState<PRType>();
@@ -31,13 +31,16 @@ export const KanbanComponent = () => {
   };
 
   const ghecAuthApi = useApi(githubAuthApiRef);
+  const config = useApi(configApiRef);
   useEffect(() => {
     async function fetchData() {
       const backstageUserIdentity = await ghecAuthApi.getProfile();
       const body = { user_id: backstageUserIdentity?.displayName };
       setUsername(body.user_id);
       await fetch(
-        `http://localhost:7007/api/pr-tracker-backend/get-user-repos/${body.user_id}`,
+        `${config.getString('backend.baseUrl')}/api/pr-tracker-backend/get-user-repos/${
+          body.user_id
+        }`,
         requestOptions,
       )
         .then((response) => response.json())
@@ -50,15 +53,6 @@ export const KanbanComponent = () => {
             repoNames.push(repo.repository);
           });
           setUserRepoNames(repoNames);
-        });
-
-      await fetch(
-        `http://localhost:7007/api/pr-tracker-backend/get-analytics/tristanigos`,
-        requestOptions,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log('analytics', data);
         });
     }
     fetchData();
@@ -101,7 +95,16 @@ export const KanbanComponent = () => {
               </Grid>
             </>
           ) : (
-            <></>
+            <>
+              <Grid item xs={10}>
+                <ContentHeader title="American Airlines Analytics Board">
+                  <SupportButton>A description of your plugin goes here.</SupportButton>
+                </ContentHeader>
+                {userRepos && (
+                  <AnalyticsBody userRepoNames={userRepoNames} userRepoView={userRepoView} />
+                )}
+              </Grid>
+            </>
           )}
         </Grid>
         <Container maxWidth="sm">
