@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     margin: '10px 0',
   },
   button: {
-    padding: '0px',
+    padding: '8px',
     width: 'inherit',
   },
   buttonLeft: {
@@ -87,19 +87,25 @@ export const KanbanTeams = ({
   return (
     <>
       <Box className={classes.box}>
+        <Typography variant="h5">Page</Typography>
+      </Box>
+      <Box className={classes.box}>
         <ToggleButtonGroup
           className={classes.toggleButtonGroup}
           value={pageSelect}
           exclusive
           onChange={handlePageClick}
         >
-          <ToggleButton value="Kanban">Kanban</ToggleButton>
-          <ToggleButton value="Analytics">Analytics</ToggleButton>
+          <ToggleButton className={classes.button} value="Kanban">
+            Kanban
+          </ToggleButton>
+          <ToggleButton className={classes.button} value="Analytics">
+            Analytics
+          </ToggleButton>
         </ToggleButtonGroup>
       </Box>
       <Box className={classes.box}>
         <Typography variant="h5">Repositories</Typography>
-        <RepoFormComponent username={username} />
       </Box>
 
       <Box className={classes.box}>
@@ -112,7 +118,7 @@ export const KanbanTeams = ({
         >
           {repositoryNames?.map((repoName: string, i: number) => (
             <ToggleButton className={classes.button} key={i} value={`${i}`}>
-              <Grid container spacing={0.5}>
+              <Grid container spacing={1}>
                 <Grid item xs={10}>
                   <Typography className={classes.buttonRight}>{repoName}</Typography>
                 </Grid>
@@ -133,6 +139,9 @@ export const KanbanTeams = ({
             </ToggleButton>
           ))}
         </ToggleButtonGroup>
+      </Box>
+      <Box className={classes.box}>
+        <RepoFormComponent username={username} />
       </Box>
     </>
   );

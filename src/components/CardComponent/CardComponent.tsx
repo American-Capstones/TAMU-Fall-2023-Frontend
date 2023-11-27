@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Chip, Divider, Typography, makeStyles } from '@material-ui/core';
+import { Box, Card, CardContent, Chip, Divider, Typography, makeStyles } from '@material-ui/core';
 import { Labels } from './LabelComponent/LabelComponent';
 import { PRType } from '../KanbanComponent/KanbanTypes';
 
@@ -9,11 +9,17 @@ interface CardComponentProps {
   onSideDrawOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   typography: {
     wordWrap: 'break-word',
+    width: '100%',
   },
-});
+  content: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentProps) => {
   const classes = useStyles();
@@ -25,13 +31,17 @@ export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentPr
   return (
     <div style={{ paddingBottom: '10px', cursor: 'pointer' }} onClick={handleClick}>
       <Card>
-        <CardContent>
-          <Chip label={`${data.stateDuration} days`} color="primary" />
-          <Chip label={`${data.numApprovals} approvers`} color="primary" />
+        <CardContent className={classes.content}>
+          <Box>
+            <Chip label={`${data.stateDuration} days`} color="primary" />
+            <Chip label={`${data.numApprovals} approvers`} color="primary" />
+          </Box>
           <Typography className={classes.typography} variant="h5">
             {data.title}
           </Typography>
-          <Labels labels={data?.labels.nodes} />
+          <Box>
+            <Labels labels={data?.labels.nodes} />
+          </Box>
           <Divider />
           <Typography className={classes.typography} variant="body1">{`${data.body?.substring(
             0,

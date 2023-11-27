@@ -17,6 +17,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const useStyles = makeStyles({
   typography: {
     wordWrap: 'break-word',
+    width: '100%',
   },
   accordion: {
     boxShadow: 'none',
@@ -91,26 +92,10 @@ export const PreviewComponent = ({
               <Typography variant="h6">Description</Typography>
             </AccordionSummary>
             <AccordionDetails classes={{ root: classes.accordionDetails }}>
-              <Typography>
-                <div>{query.body}</div>
-              </Typography>
+              <Typography className={classes.typography}>{query.body}</Typography>
             </AccordionDetails>
           </Accordion>
         </Box>
-
-        {/* <Box mt={2}>
-            <Typography variant="h6">Assignees</Typography>
-            {query.assignees.map((item: any) => (
-              <div>{item.login}</div>
-            ))}
-          </Box>
-
-          <Box mt={2}>
-            <Typography variant="h6">Requested Reviewers</Typography>
-            {query.requested_reviewers.map((item: any) => (
-              <div>{item.login}</div>
-            ))}
-          </Box> */}
 
         <Box mt={2}>
           <Typography variant="h6">Labels</Typography>
