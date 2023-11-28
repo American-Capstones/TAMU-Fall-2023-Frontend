@@ -40,16 +40,20 @@ export const PrioritySelectComponent = ({
   const handleChange = async (e: React.ChangeEvent<{ value: unknown }>) => {
     setPriority(e.target.value as string);
 
-    await fetch(`${config.getString('backend.baseUrl')}/api/pr-tracker-backend/set-pr-priority`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        pull_request_id: id,
-        priority: e.target.value,
-      }),
-    }).then((response) => {
+    await fetch(
+      `${config.getString('pr-tracker-backend.baseUrl')}/api/pr-tracker-backend/set-pr-priority`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          pull_request_id: id,
+          priority: e.target.value,
+        }),
+      },
+    ).then((response) => {
       console.log('RESPONSE', response);
       setCurrentPriority(e.target.value as string);
+      console.log(id, e.target.value as string);
     });
   };
 
