@@ -31,6 +31,7 @@ export const AnalyticsGraph = ({
 
   // year = number of years since 2023. 0 = 2023, 1 = 2023 - 1 = 2022
   const populateGraph = (year: number) => {
+    console.log('populating graph', userRepoView, analyticsData![userRepoView]);
     let data: any[] = [];
     data = months.map((month) => ({ name: month }));
 

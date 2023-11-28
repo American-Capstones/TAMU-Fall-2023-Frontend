@@ -43,6 +43,12 @@ const useStyles = makeStyles({
   accordionDetails: {
     padding: '0px 16px 16px',
   },
+
+  approved: {
+    fontWeight: 700,
+    textTransform: 'uppercase',
+    fontSize: '16px',
+  },
 });
 
 export const PreviewComponent = ({
@@ -59,6 +65,9 @@ export const PreviewComponent = ({
   const [currentDescription, setCurrentDescription] = useState<string | undefined>(
     query?.description,
   );
+  const [currentAuthor, setCurrentAuthor] = useState<string | undefined>(
+    query?.description_updated_by,
+  );
 
   // update priority client-side, reflects when drawer re-toggled
   useEffect(() => {
@@ -68,6 +77,10 @@ export const PreviewComponent = ({
   useEffect(() => {
     setCurrentDescription(query?.description);
   }, [query?.description]);
+
+  useEffect(() => {
+    setCurrentAuthor(query?.description_updated_by);
+  }, [query?.description_updated_by]);
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -79,6 +92,43 @@ export const PreviewComponent = ({
     ) {
       onSideDrawOpen(open);
     }
+  };
+
+  const displayUpdates = (reviews: ReviewType[]) => {
+    return (
+      <>
+        <Typography variant="h6">Last 5 Reviews</Typography>
+        {console.log(reviews)}
+
+        {reviews.map((review: ReviewType) => (
+          <Box mb={1}>
+            {review.state !== 'APPROVED' ? (
+              <></>
+            ) : (
+              <>
+                <Typography className={classes.approved}>
+                  Approved by {review.author.login}
+                </Typography>
+              </>
+            )}
+            {review.body.length != 0 ? (
+              <>
+                <Typography>{review.body}</Typography>
+              </>
+            ) : (
+              <></>
+            )}
+            {review.comments.nodes.map((comment: CommentType) => (
+              <>
+                <Typography>
+                  {comment.author.login}: {comment.body}
+                </Typography>
+              </>
+            ))}
+          </Box>
+        ))}
+      </>
+    );
   };
 
   return query ? (
@@ -121,7 +171,8 @@ export const PreviewComponent = ({
         </Box>
 
         <Box mt={2}>
-          <Typography variant="h6">Reviews</Typography>
+          {/* <Typography variant="h6">Reviews</Typography>
+          {console.log(query.reviews.nodes)}
           {query.reviews.nodes.map((review: ReviewType) => (
             <>
               <div>{`Author: ${review.author.login}`}</div>
@@ -133,10 +184,11 @@ export const PreviewComponent = ({
                 </>
               ))}
             </>
-          ))}
+          ))} */}
+          {displayUpdates(query.reviews.nodes)}
         </Box>
 
-        <Box sx={{ minWidth: 120 }}>
+        <Box sx={{ minWidth: 120 }} mt={2}>
           <PrioritySelectComponent
             id={query.id}
             currentPriority={currentPriority}
@@ -150,6 +202,8 @@ export const PreviewComponent = ({
               id={query.id}
               currentDescription={currentDescription}
               setCurrentDescription={setCurrentDescription}
+              currentAuthor={currentAuthor}
+              setCurrentAuthor={setCurrentAuthor}
             />
           </Box>
         </Box>

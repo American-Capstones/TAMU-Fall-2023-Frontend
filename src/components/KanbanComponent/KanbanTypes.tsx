@@ -47,6 +47,7 @@ export type PRType = {
   id: string;
   priority: string;
   description: string;
+  description_updated_by: string;
 };
 
 export type RepoType = {

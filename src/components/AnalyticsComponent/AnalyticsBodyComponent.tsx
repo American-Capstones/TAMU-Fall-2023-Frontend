@@ -37,7 +37,7 @@ export const AnalyticsBody = ({
         .then((response) => response.json())
         .then((data) => {
           setAnalyticsData(data);
-          console.log(userRepoNames);
+          console.log(data);
         });
     }
     fetchData();
