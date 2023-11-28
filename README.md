@@ -2,26 +2,37 @@
 
 Welcome to the tamu-fall-2023-frontend plugin!
 
-_This plugin was created through the Backstage CLI_
-
 ## Getting started
 
-Your plugin has been added to the example app in this repository, meaning you'll be able to access it by running `yarn start` in the root directory, and then navigating to [/tamu-fall-2023-frontend](http://localhost:3000/tamu-fall-2023-frontend).
+This Backstage plugin was created for the 2023 American Airlines sponsored Texas A&M capstone. This repository holds the frontend plugin.
 
-You can also serve the plugin in isolation by running `yarn start` in the plugin directory.
-This method of serving the plugin provides quicker iteration speed and a faster startup and hot reloads.
-It is only meant for local development, and the setup for it can be found inside the [/dev](./dev) directory.
+After the inital cloning and setup, the frontend plugin requires another set of steps to fully integrate it into the Backstage app.
 
+1. Clone this repository into your backstage root/plugins folder. You'll be able to access it by running `yarn start` in the root directory.
 
-Setup:
- * Clone the repository into root/packages/plugins
- * Navigate to packages/app/package.json and paste ```"@internal/plugin-tamu-fall-2023-frontend": "^0.1.0",``` into the dependencies section
- * Navigate to packages/app/src/App.tsx and paste ```import { TamuFall2023FrontendPage } from '@internal/plugin-tamu-fall-2023-frontend';``` below the other imports
- * Within App.tsx add a new Route tag and specify path for TamuFall2023FrontendPage, e.g. ```<Route path="/test" element={<TamuFall2023FrontendPage />} />```
- * Within the root directory package.json, add ```    "react": "18.2","react-dom": "18.2"``` to the resolution section
- * Within the root directory's app-config.yaml, add ```pr-tracker-frontend: baseUrl: http://localhost:7007``` to the bottom of the file
- * Within the App.tsx file, paste the following code into createApp function
- ```
+### Integration into the Backstage app
+
+> In the following steps, 'root' will always refer to the root directory of the Backstage app
+
+1. Navigate to the 'root/packages/app/package.json' file and paste `"@internal/plugin-tamu-fall-2023-frontend": "^0.1.0",`, into the dependencies section
+2. Navigate to the 'root/packages/app/src/App.tsx' file and paste the following code below the other imports:
+```tsx
+import { TamuFall2023FrontendPage } from '@internal/plugin-tamu-fall-2023-frontend';
+```
+3. Within the 'App.tsx' file, add a new Route tag and specify the path for `TamuFall2023FrontendPage`, e.g: 
+```tsx
+<Route path="/test" element={<TamuFall2023FrontendPage />} />
+```
+4. Within the 'root/package.json' file, add the following code to the resolution section:
+``` json   
+"react": "18.2","react-dom": "18.2"
+```
+5. Within the 'root/app-config.yaml' file, add the following code to the bottom of the file:
+```yaml 
+pr-tracker-frontend: baseUrl: http://localhost:7007
+```
+6. Navigate back to the 'root/packages/app/src/App.tsx' file, and paste the following code into createApp function:
+ ``` tsx
  components: {
     SignInPage: props => (
       <SignInPage
@@ -37,13 +48,13 @@ Setup:
     ),
   },
  ```
- * Add the following line of code ```import { githubAuthApiRef } from '@backstage/core-plugin-api';``` within the App.tsx file
- * Run ```yarn install``` from the root backstage directory
- * 
- * 
- * 
+7. Within the 'App.tsx' file, add the following code: 
+``` tsx
+import { githubAuthApiRef } from '@backstage/core-plugin-api';
+```
+8. Run `yarn install` from the root backstage directory
 
 
+> Note: You must run yarn start-backend before running yarn start!
 
-General Setup:
- * You must run yarn start-backend before running yarn start
+The plugin should now be ready for use!
