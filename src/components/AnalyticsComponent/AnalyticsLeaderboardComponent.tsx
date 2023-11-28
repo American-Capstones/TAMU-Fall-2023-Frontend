@@ -1,17 +1,52 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Select, MenuItem, Typography, List, Box, Tooltip } from '@material-ui/core';
+import { Grid, Select, MenuItem, Typography, List, Box } from '@material-ui/core';
 import { AnalyticsType, LeaderBoardDataType } from '../KanbanComponent/KanbanTypes';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'Rank', width: 75 },
-  { field: 'user_id', headerName: 'GH Username', width: 125 },
-  { field: 'pull_requests_merged', headerName: '# PRs Merged', width: 125 },
+  { field: 'name', headerName: 'GH Username', width: 125 },
+  { field: 'score', headerName: 'Contribution', width: 125 },
+  { field: 'pull_requests_merged', headerName: '# PRs Completed', width: 125 },
   { field: 'pull_requests_reviews', headerName: '# PR Reviews', width: 125 },
   { field: 'pull_requests_comments', headerName: '# PR Comments', width: 125 },
-  { field: 'score', headerName: 'Score', width: 125 },
+  { field: 'additions', headerName: '# Additions', width: 100 },
+  { field: 'deletions', headerName: '# Deletions', width: 100 },
 ];
+
+const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
+const RADIAN = Math.PI / 180;
+const renderCustomizedLabel = ({
+  cx,
+  cy,
+  midAngle,
+  innerRadius,
+  outerRadius,
+  percent,
+  index,
+}: {
+  cx: any;
+  cy: any;
+  midAngle: any;
+  innerRadius: any;
+  outerRadius: any;
+  percent: any;
+  index: any;
+}) => {
+  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+  const x = cx + radius * Math.cos(-midAngle * RADIAN);
+  const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+  return (
+    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+      {`${(percent * 100).toFixed(0)}%`}
+    </text>
+  );
+};
+
 export const AnalyticsLeaderboard = ({
   analyticsData,
   userRepoView,
@@ -25,11 +60,9 @@ export const AnalyticsLeaderboard = ({
 
   const handleYearChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAnalyticsYear(event.target.value as number);
-    console.log(event.target.value as number);
   };
   const handleMonthChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAnalyticsMonth(event.target.value as number);
-    console.log(event.target.value as number);
   };
 
   useEffect(() => {
@@ -39,20 +72,20 @@ export const AnalyticsLeaderboard = ({
 
     analyticsData[userRepoView].leaderBoard.forEach((item, index) => {
       item.data.forEach((item2) => {
-        console.log(index, item2.month - 1, item2.user_id);
         tempLeaderboard[index][item2.month - 1].push(item2);
       });
-      console.log('templeaderboard', tempLeaderboard);
     });
     setLeaderboard(tempLeaderboard);
   }, [userRepoView]);
 
   const generateRows = (currLeaderboard: LeaderBoardDataType[]) => {
     const processedArray = currLeaderboard.map((leader, index) => ({
-      user_id: leader.user_id,
+      name: leader.user_id,
       pull_requests_reviews: leader.pull_requests_reviews,
       pull_requests_merged: leader.pull_requests_merged,
       pull_requests_comments: leader.pull_requests_comments,
+      additions: leader.additions,
+      deletions: leader.deletions,
       score:
         leader.pull_requests_merged +
         0.375 * leader.pull_requests_reviews +
@@ -63,13 +96,13 @@ export const AnalyticsLeaderboard = ({
     processedArray.forEach((item) => {
       switch (item.id) {
         case 1:
-          item.user_id = `🥇 ${item.user_id}`;
+          item.name = `🥇 ${item.name}`;
           break;
         case 2:
-          item.user_id = `🥈 ${item.user_id}`;
+          item.name = `🥈 ${item.name}`;
           break;
         case 3:
-          item.user_id = `🥉 ${item.user_id}`;
+          item.name = `🥉 ${item.name}`;
           break;
         default:
           break;
@@ -121,6 +154,26 @@ export const AnalyticsLeaderboard = ({
                 }}
                 pageSizeOptions={[5]}
               />
+            )}
+            {leaderboard && (
+              <PieChart width={400} height={400}>
+                <Pie
+                  dataKey="score"
+                  isAnimationActive={false}
+                  data={generateRows(leaderboard![analyticsYear][analyticsMonth])}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={80}
+                  fill="#8884d8"
+                  labelLine={false}
+                  label={renderCustomizedLabel}
+                >
+                  {generateRows(leaderboard![analyticsYear][analyticsMonth]).map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
             )}
           </List>
         </Box>
