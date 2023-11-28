@@ -14,7 +14,10 @@ After the inital cloning and setup, the frontend plugin requires another set of 
 
 > In the following steps, 'root' will always refer to the root directory of the Backstage app
 
-1. Navigate to the 'root/packages/app/package.json' file and paste `"@internal/plugin-tamu-fall-2023-frontend": "^0.1.0",`, into the dependencies section
+1. Navigate to the 'root/packages/app/package.json' file and paste the following code into the dependencies section:
+```json
+"@internal/plugin-tamu-fall-2023-frontend": "^0.1.0",
+```
 2. Navigate to the 'root/packages/app/src/App.tsx' file and paste the following code below the other imports:
 ```tsx
 import { TamuFall2023FrontendPage } from '@internal/plugin-tamu-fall-2023-frontend';
