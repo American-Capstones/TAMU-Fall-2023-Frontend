@@ -7,12 +7,15 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Link,
+  Button,
 } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import { CommentType, LabelType, PRType, ReviewType } from '../KanbanComponent/KanbanTypes';
 import { PriorityDialogComponent } from './PriorityDialogComponent';
 import { PrioritySelectComponent } from './PrioritySelectComponent';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { PriorityDescriptionComponent } from './PriorityDescriptionComponent';
 
 const useStyles = makeStyles({
   typography: {
@@ -53,11 +56,18 @@ export const PreviewComponent = ({
 }) => {
   const classes = useStyles();
   const [currentPriority, setCurrentPriority] = useState<string | undefined>(query?.priority);
+  const [currentDescription, setCurrentDescription] = useState<string | undefined>(
+    query?.description,
+  );
 
   // update priority client-side, reflects when drawer re-toggled
   useEffect(() => {
     setCurrentPriority(query?.priority);
   }, [query?.priority]);
+
+  useEffect(() => {
+    setCurrentDescription(query?.description);
+  }, [query?.description]);
 
   const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (
@@ -83,6 +93,12 @@ export const PreviewComponent = ({
           <Typography variant="h4" className={classes.typography}>
             {query.title}
           </Typography>
+
+          <Box mb={2}>
+            <Button variant="contained" target="_blank" href={query.url}>
+              GH Link
+            </Button>
+          </Box>
 
           <Accordion classes={{ root: classes.accordion }}>
             <AccordionSummary
@@ -126,7 +142,16 @@ export const PreviewComponent = ({
             currentPriority={currentPriority}
             setCurrentPriority={setCurrentPriority}
           />
-          <PriorityDialogComponent />
+          <Box mb={2}>
+            <PriorityDialogComponent />
+          </Box>
+          <Box mb={2}>
+            <PriorityDescriptionComponent
+              id={query.id}
+              currentDescription={currentDescription}
+              setCurrentDescription={setCurrentDescription}
+            />
+          </Box>
         </Box>
       </Box>
     </Drawer>
