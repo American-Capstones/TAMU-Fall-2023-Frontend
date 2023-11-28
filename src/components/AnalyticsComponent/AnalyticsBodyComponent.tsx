@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Card } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { configApiRef, githubAuthApiRef, useApi } from '@backstage/core-plugin-api';
 import { AnalyticsType } from '../KanbanComponent/KanbanTypes';
 import { AnalyticsGraph } from './AnalyticsGraphComponent';
@@ -29,14 +29,13 @@ export const AnalyticsBody = ({
       const body = { user_id: backstageUserIdentity?.displayName };
 
       await fetch(
-        `${config.getString('backend.baseUrl')}/api/pr-tracker-backend/get-analytics/${
+        `${config.getString('pr-tracker-backend.baseUrl')}/api/pr-tracker-backend/get-analytics/${
           body.user_id
         }`,
         requestOptions,
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log('analytics', data);
           setAnalyticsData(data);
           console.log(userRepoNames);
         });

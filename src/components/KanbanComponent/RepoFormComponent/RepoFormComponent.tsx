@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Grid, TextField, makeStyles } from '@material-ui/core';
-import { useApi, configApiRef } from '@backstage/core-plugin-api';
+import { Button, TextField, makeStyles } from '@material-ui/core';
+import { useApi, configApiRef, githubAuthApiRef } from '@backstage/core-plugin-api';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -13,9 +13,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const RepoFormComponent = ({ username }: { username: string | undefined }) => {
-  const initialFormValues = {
-    ghUsername: username,
+export type FormType = {
+  ghUsername: string | undefined;
+  repositoryName: string;
+};
+
+export const RepoFormComponent = () => {
+  const initialFormValues: FormType = {
+    ghUsername: '',
     repositoryName: '',
   };
   const [formValues, setFormValues] = useState(initialFormValues);
@@ -23,6 +28,7 @@ export const RepoFormComponent = ({ username }: { username: string | undefined }
   const classes = useStyles();
 
   const config = useApi(configApiRef);
+  const ghecAuthApi = useApi(githubAuthApiRef);
 
   const handleClick = () => {
     console.log('handle click');
@@ -33,14 +39,20 @@ export const RepoFormComponent = ({ username }: { username: string | undefined }
     console.log(e);
     // post
     if (formValues.repositoryName !== '') {
-      await fetch(`${config.getString('backend.baseUrl')}/api/pr-tracker-backend/add-user-repo`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: formValues.ghUsername,
-          repository: formValues.repositoryName,
-        }),
-      }).then((response) => console.log(response));
+      const backstageUserIdentity = await ghecAuthApi.getProfile();
+      formValues.ghUsername = backstageUserIdentity?.displayName;
+
+      await fetch(
+        `${config.getString('pr-tracker-backend.baseUrl')}/api/pr-tracker-backend/add-user-repo`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_id: formValues.ghUsername,
+            repository: formValues.repositoryName,
+          }),
+        },
+      ).then((response) => console.log(response));
     }
     setFormValues(initialFormValues);
     setFormVisible(false);

@@ -32,12 +32,10 @@ const useStyles = makeStyles({
 
 export const KanbanTeams = ({
   repositoryNames,
-  username,
   setUserRepoView,
   setUserPageView,
 }: {
   repositoryNames: string[] | undefined;
-  username: string | undefined;
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
   setUserPageView: React.Dispatch<React.SetStateAction<string>>;
 }) => {
@@ -71,14 +69,17 @@ export const KanbanTeams = ({
 
     const backstageUserIdentity = await ghecAuthApi.getProfile();
 
-    await fetch(`${config.getString('backend.baseUrl')}/api/pr-tracker-backend/delete-user-repo`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        user_id: backstageUserIdentity?.displayName,
-        repository: repoName,
-      }),
-    }).then((response) => {
+    await fetch(
+      `${config.getString('pr-tracker-backend.baseUrl')}/api/pr-tracker-backend/delete-user-repo`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          user_id: backstageUserIdentity?.displayName,
+          repository: repoName,
+        }),
+      },
+    ).then((response) => {
       console.log('RESPONSE', response);
       window.location.reload();
     });
@@ -109,39 +110,41 @@ export const KanbanTeams = ({
       </Box>
 
       <Box className={classes.box}>
-        <ToggleButtonGroup
-          className={classes.toggleButtonGroup}
-          orientation="vertical"
-          value={repoSelect}
-          exclusive
-          onChange={handleRepoClick}
-        >
-          {repositoryNames?.map((repoName: string, i: number) => (
-            <ToggleButton className={classes.button} key={i} value={`${i}`}>
-              <Grid container spacing={1}>
-                <Grid item xs={10}>
-                  <Typography className={classes.buttonRight}>{repoName}</Typography>
+        {repositoryNames && (
+          <ToggleButtonGroup
+            className={classes.toggleButtonGroup}
+            orientation="vertical"
+            value={repoSelect}
+            exclusive
+            onChange={handleRepoClick}
+          >
+            {repositoryNames?.map((repoName: string, i: number) => (
+              <ToggleButton className={classes.button} key={i} value={`${i}`}>
+                <Grid container spacing={1}>
+                  <Grid item xs={10}>
+                    <Typography className={classes.buttonRight}>{repoName}</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <Button
+                      onClick={(e) => {
+                        handleRepoClear(e, repoName);
+                      }}
+                      className={classes.buttonLeft}
+                    >
+                      <CloseIcon />
+                    </Button>
+                  </Grid>
                 </Grid>
-                <Grid item xs={2}>
-                  <Button
-                    onClick={(e) => {
-                      handleRepoClear(e, repoName);
-                    }}
-                    className={classes.buttonLeft}
-                  >
-                    <CloseIcon />
-                  </Button>
-                </Grid>
-              </Grid>
-              {/* <Button className={classes.buttonLeft}>{repoName}</Button> */}
-              {/* <ButtonGroup variant="text" className={classes.buttonGroup}>
+                {/* <Button className={classes.buttonLeft}>{repoName}</Button> */}
+                {/* <ButtonGroup variant="text" className={classes.buttonGroup}>
             </ButtonGroup> */}
-            </ToggleButton>
-          ))}
-        </ToggleButtonGroup>
+              </ToggleButton>
+            ))}
+          </ToggleButtonGroup>
+        )}
       </Box>
       <Box className={classes.box}>
-        <RepoFormComponent username={username} />
+        <RepoFormComponent />
       </Box>
     </>
   );
@@ -151,12 +154,10 @@ export const KanbanTeamsComponent = ({
   userRepoNames,
   setUserRepoView,
   setUserPageView,
-  username,
 }: {
   userRepoNames: string[] | undefined;
   setUserPageView: React.Dispatch<React.SetStateAction<string>>;
   setUserRepoView: React.Dispatch<React.SetStateAction<number>>;
-  username: string | undefined;
 }) => {
   return (
     <Grid item xs={2}>
@@ -172,7 +173,6 @@ export const KanbanTeamsComponent = ({
           <Box mr={2}>
             <KanbanTeams
               repositoryNames={userRepoNames}
-              username={username}
               setUserRepoView={setUserRepoView}
               setUserPageView={setUserPageView}
             />

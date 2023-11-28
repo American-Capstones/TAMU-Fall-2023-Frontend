@@ -49,7 +49,6 @@ export const AnalyticsGraph = ({
         }
       }
     });
-    console.log(analyticsType, userRepoView, year, data);
 
     return (
       <>
@@ -87,7 +86,6 @@ export const AnalyticsGraph = ({
 
   const handleYearChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     setAnalyticsYear(event.target.value as number);
-    console.log(event.target.value as number);
   };
 
   return (
