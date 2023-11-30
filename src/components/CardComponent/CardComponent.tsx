@@ -19,6 +19,15 @@ const useStyles = makeStyles((theme) => ({
       margin: '8px 0px',
     },
   },
+  chipRoot: {
+    height: '24px',
+    marginBottom: '0',
+  },
+  chip: {
+    fontSize: '12px',
+    paddingLeft: '12px',
+    paddingRight: '12px',
+  },
 }));
 
 export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentProps) => {
@@ -33,17 +42,25 @@ export const CardComponent = ({ data, onQuery, onSideDrawOpen }: CardComponentPr
       <Card>
         <CardContent className={classes.content}>
           <Box>
-            <Chip label={`${data.stateDuration} days`} color="primary" />
-            <Chip label={`${data.numApprovals} approvers`} color="primary" />
+            <Chip
+              label={`${data.stateDuration} days`}
+              color="primary"
+              classes={{ label: classes.chip, root: classes.chipRoot }}
+            />
+            <Chip
+              label={`${data.numApprovals} approvers`}
+              color="primary"
+              classes={{ label: classes.chip, root: classes.chipRoot }}
+            />
           </Box>
-          <Typography className={classes.typography} variant="h5">
+          <Typography className={classes.typography} variant="h6">
             {data.title}
           </Typography>
           <Box>
             <Labels labels={data?.labels.nodes} />
           </Box>
           <Divider />
-          <Typography className={classes.typography} variant="body1">{`${data.body?.substring(
+          <Typography className={classes.typography} variant="body2">{`${data.body?.substring(
             0,
             120,
           )}...`}</Typography>

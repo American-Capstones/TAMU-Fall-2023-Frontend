@@ -16,6 +16,7 @@ export const KanbanComponent = () => {
   const [sideDrawOpen, setSideDrawOpen] = useState(false);
   const [userRepoView, setUserRepoView] = useState(0);
   const [userPageView, setUserPageView] = useState('Kanban');
+  const [username, setUsername] = useState<string | undefined>();
 
   const requestOptions = {
     method: 'GET',
@@ -47,6 +48,7 @@ export const KanbanComponent = () => {
             repoNames.push(repo.repository);
           });
           setUserRepoNames(repoNames);
+          setUsername(backstageUserIdentity?.displayName);
         });
     }
     fetchData();
@@ -54,7 +56,7 @@ export const KanbanComponent = () => {
 
   return (
     <Page themeId="home">
-      <Header title="PR Tracker" subtitle="View PRs and Analytics"></Header>
+      <Header title="PR Tracker" subtitle={`Welcome, ${username}!`}></Header>
       <Content>
         <Grid container spacing={2} direction="row">
           <KanbanTeamsComponent
